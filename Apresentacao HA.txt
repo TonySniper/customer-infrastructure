@@ -1,0 +1,37 @@
+Apresentacao
+
+Contexto do cliente
+
+-10 aplicacoes wordpress replicados em dois servidores, o que da 20 aplicacoes no total 
+-1 banco de dados replicado em 2 servidores atras de um HA proxy pra ter HA
+-Estes servidores sao gerenciado pelo proprio cliente
+-Alguns dos sites cresceram em popularidade e experienciam instabilidades em momentos especificos do dia devido ao alto trafego inesperado de usuarios
+-O cliente gostaria de migrar essas aplicacoes para a nuvem publica
+-Somente aplicacoes wordpress serao desenvolvidas
+-5 aplicacoes serao add em doze meses.
+
+Requisitos do cliente
+
+-Alta disponibilidade HA
+-Escalabilidade para lidar com sudden trafego alto de usuarios sem passar mal
+-Flexibilidade para adicionar novas aplicacoes na nuvem sem esforco 
+-Futuro prova
+
+Proposta tecnica
+
+-Deploy a aplicacao em duas regioes diferentes
+-Database server com failover group em outra regiao
+-Azure front door para gerenciar trafego para aplicacao mais proxima geograficamente
+-Storage account GRS para armazenamento de media
+-CDN com caching para entrega da midia 
+-KeyVault para guardar informacoes da aplicacao
+
+Azure specifics
+
+-Aplicacoes serao WebApps com PHP runtime
+-Monitoramento com Application Insights
+-Alertas pra coisas duvidosas com azure monitor
+-Db sera MySQL no Azure com failover groups 
+-Storage account GRS 
+-Azure front door com CDN (talvez trocar cdn pelo Azure CDN)
+-Ainda nao foi nada decidido sobre VNETs, talvez 1 vnet por regiao pra motivos futuros

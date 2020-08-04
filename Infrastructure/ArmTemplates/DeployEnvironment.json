@@ -10,10 +10,24 @@
         },
         "secondaryLocation": {
             "type": "string"
+        },
+        "primaryLocationShortName": {
+            "type": "string"
+        },
+        "secondaryLocationShortName": {
+            "type": "string"
+        },
+        "appName": {
+            "type": "string"
         }
     },
     "functions": [],
-    "variables": {},
+    "variables": {
+        "primaryRgName": "[concat('rg-', parameters('appName'), '-', parameters('primaryLocationShortName'))]",
+        "secondaryRgName": "[concat('rg-', parameters('appName'), '-', parameters('secondaryLocationShortName'))]",
+
+        "rgTemplateUrl": "[uri(parameters('templateBaseUrl'), 'nested/ResourceGroup/ResourceGroup.json')]" 
+    },
     "resources": [
         {
             "type": "Microsoft.Resources/deployments",
@@ -22,7 +36,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": ""
+                    "uri": "[variables('rgTemplateUrl')]"
                 }
             }
         }
