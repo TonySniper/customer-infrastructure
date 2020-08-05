@@ -1,1 +1,0 @@
-New-AzSubscriptionDeployment -Location 'West Europe' -TemplateFile '.\ArmTemplates\nested\ResourceGroup\ResourceGroup.json' -rgName $rgName -rgLocation $location

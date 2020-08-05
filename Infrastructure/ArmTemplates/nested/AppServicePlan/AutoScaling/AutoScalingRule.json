@@ -1,0 +1,57 @@
+{
+    "location": "West Europe",
+    "tags": {},
+    "properties": {
+        "name": "asp-test-Autoscale-911",
+        "enabled": true,
+        "targetResourceUri": "/subscriptions/57b3f40b-3b69-4065-95cb-462064462692/resourcegroups/rg-wow-westeu/providers/Microsoft.Web/serverFarms/asp-test",
+        "profiles": [
+            {
+                "name": "Antonio Test Auto Scale",
+                "capacity": {
+                    "minimum": "1",
+                    "maximum": "3",
+                    "default": "1"
+                },
+                "rules": [
+                    {
+                        "scaleAction": {
+                            "direction": "Increase",
+                            "type": "ChangeCount",
+                            "value": "1",
+                            "cooldown": "PT5M"
+                        },
+                        "metricTrigger": {
+                            "metricName": "CpuPercentage",
+                            "metricNamespace": "microsoft.web/serverfarms",
+                            "metricResourceUri": "/subscriptions/57b3f40b-3b69-4065-95cb-462064462692/resourceGroups/rg-wow-westeu/providers/Microsoft.Web/serverFarms/asp-test",
+                            "operator": "GreaterThan",
+                            "statistic": "Average",
+                            "threshold": 90,
+                            "timeAggregation": "Average",
+                            "timeGrain": "PT1M",
+                            "timeWindow": "PT10M",
+                            "Dimensions": [],
+                            "dividePerInstance": false
+                        }
+                    }
+                ]
+            }
+        ],
+        "notifications": [
+            {
+                "operation": "Scale",
+                "email": {
+                    "sendToSubscriptionAdministrator": false,
+                    "sendToSubscriptionCoAdministrators": false,
+                    "customEmails": []
+                },
+                "webhooks": []
+            }
+        ],
+        "targetResourceLocation": "West Europe"
+    },
+    "id": "/subscriptions/57b3f40b-3b69-4065-95cb-462064462692/resourceGroups/rg-wow-westeu/providers/microsoft.insights/autoscalesettings/asp-test-Autoscale-911",
+    "name": "asp-test-Autoscale-911",
+    "type": "Microsoft.Insights/autoscaleSettings"
+}
