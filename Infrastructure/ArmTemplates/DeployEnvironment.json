@@ -1,5 +1,5 @@
 {
-    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
         "templateBaseUrl": {
@@ -26,20 +26,11 @@
         "primaryRgName": "[concat('rg-', parameters('appName'), '-', parameters('primaryLocationShortName'))]",
         "secondaryRgName": "[concat('rg-', parameters('appName'), '-', parameters('secondaryLocationShortName'))]",
 
+
         "rgTemplateUrl": "[uri(parameters('templateBaseUrl'), 'nested/ResourceGroup/ResourceGroup.json')]" 
     },
     "resources": [
-        {
-            "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2019-10-01",
-            "name": "createPrimaryRg",
-            "properties": {
-                "mode": "Incremental",
-                "templateLink": {
-                    "uri": "[variables('rgTemplateUrl')]"
-                }
-            }
-        }
+        
     ],
     "outputs": {}
 }
