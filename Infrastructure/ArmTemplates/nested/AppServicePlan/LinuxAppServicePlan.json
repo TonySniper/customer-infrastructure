@@ -2,36 +2,40 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "appServicePlanName": {
-            "type": "String"
+        "appName": {
+            "type": "string"
         },
         "location": {
+            "defaultValue": "[resourceGroup().location]",
             "type": "string"
         },
         "sku": {
             "type": "object"
         }
     },
-    "variables": {},
+    "variables": {
+        "appServicePlanName1": "[concat('asp-', parameters('appName'))]"
+    },
     "resources": [
         {
             "type": "Microsoft.Web/serverfarms",
             "apiVersion": "2018-02-01",
-            "name": "[parameters('appServicePlanName')]",
+            "name": "[variables('appServicePlanName1')]",
             "location": "[parameters('location')]",
             "sku": {
-                "name": "[parameters('sku').name]",
-                "tier": "[parameters('sku').tier]",
-                "size": "[parameters('sku').size]",
-                "family": "[parameters('sku').family]",
-                "capacity": "[parameters('sku').capacity]"
+                "name": "[parameters('sku').name]"
             },
             "kind": "linux",
             "properties": {
                 "perSiteScaling": false,
-                "maximumElasticWorkerCount": 1,
                 "reserved": true
             }
         }
-    ]
+    ],
+    "outputs": {
+        "appServicePlanName": {
+            "type": "string",
+            "value": "[variables('appServicePlanName1')]"
+        }
+    }
 }

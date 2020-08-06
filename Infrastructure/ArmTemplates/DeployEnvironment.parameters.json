@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "templateBaseUrl": {        
-            "value": "https://raw.githubusercontent.com/TonySniper/customer-infrastructure/master/Infrastructure/"
+            "value": "https://raw.githubusercontent.com/TonySniper/customer-infrastructure/master/Infrastructure/ArmTemplates"
         },
         "primaryLocation": {
             "value": "West Europe"

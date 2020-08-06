@@ -1,0 +1,60 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "appName": {
+            "type": "string"
+        },
+        "templateBaseUrl": {
+            "type": "string"
+        },
+        "appServicePlanSettings": {
+            "type": "object"
+        }
+    },
+    "functions": [],
+    "variables": {
+        "appServicePlanTemplateUrl": "[concat(parameters('templateBaseUrl'), '/nested/AppServicePlan/LinuxAppServicePlan.json')]",
+        "webAppTemplateUrl": "[concat(parameters('templateBaseUrl'), '/nested/WebApp/LinuxAppService.json')]",
+        
+        "appServicePlanDeploymentName": "deployAppServicePlan"
+    },
+    "resources": [
+        {
+            "name": "[variables('appServicePlanDeploymentName')]",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('appServicePlanTemplateUrl')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "sku": "[parameters('appServicePlanSettings').sku]",
+                    "appName": "[parameters('appName')]"
+                }
+            }
+        },
+        {
+            "name": "deployWebApp",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "dependsOn": [
+                "deployAppServicePlan"
+            ],
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('webAppTemplateUrl')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "appName": "[parameters('appName')]",
+                    "appServicePlanName": "[reference(variables('appServicePlanDeploymentName')).outputs.appServicePlanName.value]"
+                }
+            }
+        }
+    ],
+    "outputs": {}
+}
