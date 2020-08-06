@@ -1,4 +1,4 @@
-Apresentacao
+
 
 Contexto do cliente
 
@@ -20,19 +20,21 @@ Requisitos do cliente
 Proposta tecnica
 
 -Deploy a aplicacao em duas regioes diferentes
--Database server compartilhado entre todas as aplicacoes. Possui failover group em outra regiao
--Azure front door para gerenciar trafego para aplicacao mais proxima geograficamente
--Storage account GRS para armazenamento de media
--CDN com caching para entrega da midia 
--KeyVault para guardar informacoes/secrets da aplicacao
+-Database server compartilhado entre todas as aplicacoes. Possui failover group em outra regiao - shared
+-Azure front door para gerenciar trafego para aplicacao mais proxima geograficamente - shared
+-Storage account GRS por aplicacao para armazenamento de media
+-CDN com caching para entrega da midia - shared
+-KeyVault para guardar informacoes/secrets da aplicacao - shared? 
 
 Azure specifics
 
--Aplicacoes serao WebApps com PHP runtime
--Monitoramento com Application Insights
+-Aplicacoes serao WebApps com PHP runtime (em andamento)
+-Autoscaling pros webapps no app service plan
+-RBAC pro KeyVault; RBAC remove o requerimento de credenciais
 -Alertas pra coisas duvidosas com azure monitor
 -Db sera MySQL no Azure com failover groups. 1 Para todos apps 
 -Storage account GRS ou LRS. 1 por app
 -Azure front door com CDN (talvez trocar cdn pelo Azure CDN)
--Ainda nao foi nada decidido sobre VNETs, talvez 1 vnet por regiao pra motivos futuros
+-Ainda nao foi nada decidido sobre VNETs, talvez 1 vnet por regiao 
 -Recovery Services Vault para back up do banco ou de alguma coisa (pesquisar sobre)
+-Monitoramento com Application Insights - OUT porque app insights so pra .net app;
