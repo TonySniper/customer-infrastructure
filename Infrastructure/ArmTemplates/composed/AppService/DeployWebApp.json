@@ -16,7 +16,7 @@
     "variables": {
         "appServicePlanTemplateUrl": "[concat(parameters('templateBaseUrl'), '/nested/AppServicePlan/LinuxAppServicePlan.json')]",
         "webAppTemplateUrl": "[concat(parameters('templateBaseUrl'), '/nested/WebApp/LinuxAppService.json')]",
-        
+
         "appServicePlanDeploymentName": "deployAppServicePlan"
     },
     "resources": [
@@ -31,8 +31,12 @@
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
-                    "sku": "[parameters('appServicePlanSettings').sku]",
-                    "appName": "[parameters('appName')]"
+                    "sku": {
+                        "value": "[parameters('appServicePlanSettings').sku]"
+                    },
+                    "appName": {
+                        "value": "[parameters('appName')]"
+                    }
                 }
             }
         },
@@ -50,8 +54,12 @@
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
-                    "appName": "[parameters('appName')]",
-                    "appServicePlanName": "[reference(variables('appServicePlanDeploymentName')).outputs.appServicePlanName.value]"
+                    "appName": {
+                        "value": "[parameters('appName')]"
+                    },
+                    "appServicePlanName": {
+                        "value": "[reference(variables('appServicePlanDeploymentName')).outputs.appServicePlanName.value]"
+                    }
                 }
             }
         }

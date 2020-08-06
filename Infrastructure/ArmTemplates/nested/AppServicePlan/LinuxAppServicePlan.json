@@ -14,13 +14,13 @@
         }
     },
     "variables": {
-        "appServicePlanName1": "[concat('asp-', parameters('appName'))]"
+        "appServicePlanName": "[concat('asp-', parameters('appName'))]"
     },
     "resources": [
         {
             "type": "Microsoft.Web/serverfarms",
             "apiVersion": "2018-02-01",
-            "name": "[variables('appServicePlanName1')]",
+            "name": "[variables('appServicePlanName')]",
             "location": "[parameters('location')]",
             "sku": {
                 "name": "[parameters('sku').name]"
@@ -35,7 +35,7 @@
     "outputs": {
         "appServicePlanName": {
             "type": "string",
-            "value": "[variables('appServicePlanName1')]"
+            "value": "[variables('appServicePlanName')]"
         }
     }
 }
