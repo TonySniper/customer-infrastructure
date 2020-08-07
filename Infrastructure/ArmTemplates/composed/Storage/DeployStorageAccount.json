@@ -1,0 +1,50 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "appName": {
+            "type": "string"
+        },
+        "environment": {
+            "type": "string"
+        },
+        "templateBaseUrl": {
+            "type": "string"
+        },
+        "storageAccountSettings": {
+            "type": "object"
+        }
+    },
+    "functions": [],
+    "variables": {
+    },
+    "resources": [
+        {
+            "name": "deployStorageAccount",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(parameters('templateBaseUrl'), '/nested/StorageAccount/StorageAccount.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "appName": {
+                        "value": "[parameters('appName')]"
+                    },
+                    "containerName": {
+                        "value": "[parameters('storageAccountSettings').containerName]"
+                    },
+                    "environment": {
+                        "value": "[parameters('environment')]"
+                    },
+                    "sku": {
+                        "value": "[parameters('storageAccountSettings').sku]"
+                    }
+                }
+            }
+        }
+    ],
+    "outputs": {}
+}

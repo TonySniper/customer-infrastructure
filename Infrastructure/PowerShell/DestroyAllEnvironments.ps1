@@ -1,1 +1,1 @@
-Get-AzResourceGroup | Remove-AzResourceGroup1 -Force
+Get-AzResourceGroup -Verbose | Remove-AzResourceGroup -Verbose -Force

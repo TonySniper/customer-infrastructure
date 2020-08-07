@@ -24,17 +24,15 @@
 param (
     [Parameter(mandatory=$true)]
     [string]
-    $primaryRgName,
-    [Parameter(mandatory=$true)]
-    [string]
-    $primaryLocation
+    $location
 )
 
-Write-Host 'Creating primary resource group'
-New-AzSubscriptionDeployment -Name $primaryRgName -Location $primaryLocation -TemplateFile '.\ArmTemplates\nested\ResourceGroup\ResourceGroup.json' -rgName $primaryRgName -rgLocation $primaryLocation
+Write-Host 'Creating primary prod resource group'
+#New-AzSubscriptionDeployment -Location $location `
+#    -TemplateFile '.\ArmTemplates\ResourceGroup\CreateResourceGroup.json' `
+#    -TemplateParameterFile '.\ArmTemplates\ResourceGroup\CreateResourceGroup.parameters.wow.prod.json' `
+#    -Verbose
 
-#Write-Host 'Creating secondary resource group'
-#New-AzSubscriptionDeployment -Name $secondaryRgName -Location $secondaryLocation -TemplateFile '..\ArmTemplates\nested\ResourceGroup\ResourceGroup.json' -rgName $secondaryRgName -rgLocation $secondaryLocation
-
-#Write-Host 'Creating shared resources resource group'
-#New-AzSubscriptionDeployment -Name $secondaryRgName -Location $secondaryLocation -TemplateFile '..\ArmTemplates\nested\ResourceGroup\ResourceGroup.json' -rgName $secondaryRgName -rgLocation $secondaryLocation
+New-AzSubscriptionDeployment -Name "DeployResourceGroup-$location" -Location $location `
+    -TemplateFile '.\ArmTemplates\ResourceGroup\CreateResourceGroup.json' `
+    -Verbose

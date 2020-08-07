@@ -4,13 +4,9 @@
     "parameters": {
         "appName": {
             "value": "wow"
-        }
-        "appServicePlanSettings": {
-            "value": {
-                "sku": {
-                    "name": "S1"
-                }
-            }
+        },
+        "environment": {
+            "value": "prod"
         }
     }
 }

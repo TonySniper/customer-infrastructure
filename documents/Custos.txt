@@ -1,0 +1,11 @@
+*All prices are in $Euro/month
+
+Storage account
+Major costs - Capacity (storage size) and geo-replication data transfer
+Specs: 
+Capacity - 500gb
+
+
+ZRS: $24,72
+GRS: $50,33
+RA-GRS: $60,13
