@@ -30,27 +30,27 @@
     "resources": [
       {
         "type": "Microsoft.Storage/storageAccounts",
-      "apiVersion": "2019-06-01",
-      "name": "[variables('storageAccountName')]",
-      "location": "[parameters('location')]",
-      "sku": {
-        "name": "Standard_LRS",
-        "tier": "Standard"
-      },
-      "kind": "StorageV2",
-      "properties": {
-        "accessTier": "Hot"
-      },
-      "resources": [
-        {
-          "type": "containers",
-          "apiVersion": "2019-06-01",
-          "name": "[concat('default/', parameters('containerName'))]",
-          "dependsOn": [
-            "[variables('storageAccountName')]"
-          ]
-        }
-      ]
+        "apiVersion": "2019-06-01",
+        "name": "[variables('storageAccountName')]",
+        "location": "[parameters('location')]",
+        "sku": {
+          "name": "[parameters('sku').name]",
+          "tier": "[parameters('sku').tier]"
+        },
+        "kind": "StorageV2",
+        "properties": {
+          "accessTier": "Hot"
+        },
+        "resources": [
+          {
+            "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
+            "apiVersion": "2019-06-01",
+            "name": "[concat(variables('storageAccountName'), '/default/', parameters('containerName'))]",
+            "dependsOn": [
+              "[variables('storageAccountName')]"
+            ]
+          }
+        ]
       }
     ]
   }
