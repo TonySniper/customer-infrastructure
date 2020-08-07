@@ -11,7 +11,10 @@
         "templateBaseUrl": {
             "type": "string"
         },
-        "storageAccountSettings": {
+        "containerName": {
+            "type": "string"
+        },
+        "sku": {
             "type": "object"
         }
     },
@@ -34,13 +37,13 @@
                         "value": "[parameters('appName')]"
                     },
                     "containerName": {
-                        "value": "[parameters('storageAccountSettings').containerName]"
+                        "value": "[parameters('containerName')]"
                     },
                     "environment": {
                         "value": "[parameters('environment')]"
                     },
                     "sku": {
-                        "value": "[parameters('storageAccountSettings').sku]"
+                        "value": "[parameters('sku')]"
                     }
                 }
             }
