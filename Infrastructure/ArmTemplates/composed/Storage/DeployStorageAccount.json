@@ -2,14 +2,11 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "appName": {
-            "type": "string"
-        },
-        "environment": {
-            "type": "string"
-        },
-        "templateBaseUrl": {
-            "type": "string"
+        "templateSettings": {
+            "type": "object",
+            "metadata": {
+                "description": "Common arm template settings: appName, templateBaseUrl and environment"
+            }
         },
         "containerName": {
             "type": "string"
@@ -20,30 +17,48 @@
     },
     "functions": [],
     "variables": {
+        "storageAccountDeploymentName": "deployStorageAccount"
     },
     "resources": [
         {
-            "name": "deployStorageAccount",
+            "name": "[variables('storageAccountDeploymentName')]",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-10-01",
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[concat(parameters('templateBaseUrl'), '/nested/StorageAccount/StorageAccount.json')]",
+                    "uri": "[concat(parameters('templateSettings').templateBaseUrl, '/nested/StorageAccount/StorageAccount.json')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
                     "appName": {
-                        "value": "[parameters('appName')]"
-                    },
-                    "containerName": {
-                        "value": "[parameters('containerName')]"
+                        "value": "[parameters('templateSettings').appName]"
                     },
                     "environment": {
-                        "value": "[parameters('environment')]"
+                        "value": "[parameters('templateSettings').environment]"
                     },
                     "sku": {
                         "value": "[parameters('sku')]"
+                    }
+                }
+            }
+        },
+        {
+            "name": "deployBlobContainer",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(parameters('templateSettings').templateBaseUrl, '/nested/StorageAccount/BlobContainer.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "containerName": {
+                        "value": "[parameters('containerName')]"
+                    },
+                    "storageAccountName": {
+                        "value": "[reference(variables('storageAccountDeploymentName')).outputs.storageAccountName.value]"
                     }
                 }
             }
