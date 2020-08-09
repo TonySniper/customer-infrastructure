@@ -14,7 +14,7 @@
         "administratorLogin": {
             "type": "string"
         },
-        "administratorLoginPasword": {
+        "administratorLoginPassword": {
             "type": "string",
             "metadata": {
                 "description": "I know we should use securestrings for this, I choose string for simplicity's sake; will change it later"
@@ -45,7 +45,7 @@
             "type": "string"            
         },
         "backupRetentionDays": {
-            "type": "string",
+            "type": "int",
             "metadata": {
                 "description": "description"
             }
@@ -78,7 +78,7 @@
                         "value": "[parameters('administratorLogin')]"
                     },
                     "administratorLoginPassword": {
-                        "value": "[parameters('administratorLoginPasword')]"
+                        "value": "[parameters('administratorLoginPassword')]"
                     },
                     "skuName": {
                         "value": "[parameters('skuName')]"

@@ -9,11 +9,14 @@
                 "templateBaseUrl": "https://raw.githubusercontent.com/TonySniper/customer-infrastructure/master/Infrastructure/ArmTemplates"
             }
         },
+        "databaseName": {
+            "value": "wowdb"
+        },
         "administratorLogin": {
             "value": "adminwow"
         },
         "administratorLoginPassword": {
-            "value": null
+            "value": "TestPass@123"
         },
         "skuName": {
             "value": "GP_Gen5_2"
@@ -29,9 +32,6 @@
         },
         "skuFamily": {
             "value": "Gen5"
-        },
-        "storageMB": {
-            "value": 102400
         },
         "backupRetentionDays": {
             "value": 7
