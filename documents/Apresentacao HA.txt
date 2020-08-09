@@ -38,3 +38,4 @@ Azure specifics
 -Ainda nao foi nada decidido sobre VNETs, talvez 1 vnet por regiao 
 -Recovery Services Vault para back up do banco ou de alguma coisa (pesquisar sobre)
 -Monitoramento com Application Insights - OUT porque app insights so pra .net app;
+-MariaDB ou MySQL pro db server?

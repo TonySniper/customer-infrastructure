@@ -1,0 +1,43 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "templateSettings": {
+            "value": {
+                "environment": "dev",
+                "appName": "wow",
+                "templateBaseUrl": "https://raw.githubusercontent.com/TonySniper/customer-infrastructure/master/Infrastructure/ArmTemplates"
+            }
+        },
+        "administratorLogin": {
+            "value": "adminwow"
+        },
+        "administratorLoginPassword": {
+            "value": null
+        },
+        "skuName": {
+            "value": "GP_Gen5_2"
+        },
+        "skuSizeMB": {
+            "value": 102400
+        },
+        "skuTier": {
+            "value": "GeneralPurpose"
+        },
+        "skuCapacity": {
+            "value": 2
+        },
+        "skuFamily": {
+            "value": "Gen5"
+        },
+        "storageMB": {
+            "value": 102400
+        },
+        "backupRetentionDays": {
+            "value": 7
+        },
+        "geoRedundantBackup": {
+            "value": "Enabled"
+        }
+    }
+}

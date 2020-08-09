@@ -1,0 +1,109 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "templateSettings": {
+            "type": "object",
+            "metadata": {
+                "description": "Common arm template settings: appName, templateBaseUrl and environment"
+            }
+        },
+        "databaseName": {
+            "type": "string"
+        },
+        "administratorLogin": {
+            "type": "string"
+        },
+        "administratorLoginPasword": {
+            "type": "string",
+            "metadata": {
+                "description": "I know we should use securestrings for this, I choose string for simplicity's sake; will change it later"
+            }
+        },
+        "skuName": {
+            "type": "string",
+            "metadata": {
+                "description": "description"
+            }
+        },
+        "skuSizeMB": {
+            "type": "int",
+            "metadata": {
+                "description": "description"
+            }
+        },
+        "skuTier": {
+            "type": "string",
+            "metadata": {
+                "description": "description"
+            }
+        },
+        "skuCapacity": {
+            "type": "int"
+        },
+        "skuFamily": {
+            "type": "string"            
+        },
+        "backupRetentionDays": {
+            "type": "string",
+            "metadata": {
+                "description": "description"
+            }
+        },
+        "geoRedundantBackUp": {
+            "type": "string"
+        }
+    },
+    "functions": [],
+    "variables": {},
+    "resources": [
+        {
+            "name": "mySqlDeployment",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(parameters('templateSettings').templateBaseUrl, '/nested/Database/MySqlDatabase.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "serverName": {
+                        "value": "[concat('mysql-', parameters('templateSettings').appName, '-', parameters('templateSettings').environment, '-', resourceGroup().location)]"
+                    },
+                    "databaseName": {
+                        "value": "[parameters('databaseName')]"
+                    },
+                    "administratorLogin": {
+                        "value": "[parameters('administratorLogin')]"
+                    },
+                    "administratorLoginPassword": {
+                        "value": "[parameters('administratorLoginPasword')]"
+                    },
+                    "skuName": {
+                        "value": "[parameters('skuName')]"
+                    },
+                    "skuSizeMB": {
+                        "value": "[parameters('skuSizeMB')]"
+                    },
+                    "skuTier": {
+                        "value": "[parameters('skuTier')]"
+                    },
+                    "skuCapacity": {
+                        "value": "[parameters('skuCapacity')]"
+                    },
+                    "skuFamily": {
+                        "value": "[parameters('skuFamily')]"
+                    },
+                    "backupRetentionDays": {
+                        "value": "[parameters('backupRetentionDays')]"
+                    },
+                    "geoRedundantBackup": {
+                        "value": "[parameters('geoRedundantBackUp')]"
+                    }                    
+                }
+            }
+        }
+    ],
+    "outputs": {}
+}
