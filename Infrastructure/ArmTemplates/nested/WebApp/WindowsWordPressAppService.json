@@ -1,0 +1,117 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "appName": {
+            "type": "string",
+            "minLength": 2
+        },
+        "linuxFxVersion": {
+            "type": "string",
+            "defaultValue": "php|7.0"
+        },
+        "location": {
+            "type": "string",
+            "defaultValue": "[resourceGroup().location]"
+        },
+        "environment": {
+            "type": "string",
+            "metadata": {
+                "description": "description"
+            }
+        },
+        "appServicePlanName": {
+            "type": "string"
+        },
+        "connectionString": {
+            "type": "string",
+            "metadata": {
+                "description": "description"
+            }
+        },
+        "sourceControlUrl": {
+            "type": "string",
+            "defaultValue": "https://github.com/azureappserviceoss/wordpress-azure",
+            "metadata": {
+                "description": "Used for simplicity's sake of the test (same for the 'branch' property). Real life scenarios would have apps deployed through your favorite CI/CD platform (Azure DevOps, Gitlab, etc)"
+            }
+        }
+    },
+    "variables": {
+        "webAppPortalName": "[concat('app-', parameters('appName'), '-', parameters('environment'), '-', parameters('location'))]",
+        "appInsightsName": "[concat('appinsights-', parameters('appName'), '-', parameters('environment'), '-', parameters('location'))]"
+    },
+    "resources": [
+        {
+            "name": "[variables('webAppPortalName')]",
+            "type": "Microsoft.Web/sites",
+            "properties": {
+                "name": "[variables('webAppPortalName')]",
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('appServicePlanName'))]",
+                "siteConfig": {
+                    "appSettings": [
+                        {
+                            "name": "DATABASE_HOST",
+                            "value": "P:DATABASEHOST:3306"
+                        },
+                        {
+                            "name": "PHPMYADMIN_EXTENSION_VERSION",
+                            "value": "latest"
+                        },
+                        {
+                            "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+                            "value": "[reference(concat('microsoft.insights/components/', variables('appInsightsName'), '2015-05-01')).InstrumentationKey]"
+                        },
+                        {
+                            "name": "XDT_MicrosoftApplicationInsights_Mode",
+                            "value": "default"
+                        },
+                        {
+                            "name": "ApplicationInsightsAgent_EXTENSION_VERSION",
+                            "value": "~2"
+                        }
+                    ],
+                    "phpVersion": "7.0",
+                    "connectionStrings": [
+                        {
+                            "name": "defaultConnection",
+                            "ConnectionString": "[parameters('connectionString')]",
+                            "type": "MySQL"
+                        }
+                    ]
+                }                
+            },
+            "resources": [
+                {
+                    "apiVersion": "2018-11-01",
+                    "name": "web",
+                    "type": "sourcecontrols",
+                    "dependsOn": [
+                        "[resourceId('Microsoft.Web/Sites', variables('webAppPortalName'))]"
+                    ],
+                    "properties": {
+                        "RepoUrl": "[parameters('sourceControlUrl')]",
+                        "branch": "master",
+                        "IsManualIntegration": true
+                    }
+                }
+            ],
+            "dependsOn": [
+                "[concat('Microsoft.Web/serverfarms/', parameters('appServicePlanName'))]",
+                "[concat('microsoft.insights/components/', variables('webAppPortalName'))]"
+            ],
+            "apiVersion": "2018-11-01",
+            "location": "[parameters('location')]"
+        },
+        {
+            "apiVersion": "2015-05-01",
+            "name": "[variables('appInsightsName')]",
+            "type": "microsoft.insights/components",
+            "location": "[parameters('location')]",
+            "properties": {
+                "ApplicationId": "[variables('webAppPortalName')]",
+                "Request_Source": "IbizaWebAppExtensionCreate"
+            }
+        } 
+    ]
+}
