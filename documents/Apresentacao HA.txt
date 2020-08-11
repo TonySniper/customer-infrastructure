@@ -13,18 +13,18 @@ Contexto do cliente
 Requisitos do cliente
 
 -Alta disponibilidade HA
--Escalabilidade para lidar com sudden trafego alto de usuarios sem passar mal
--Flexibilidade para adicionar novas aplicacoes na nuvem sem esforco 
--Futuro prova
+-Escalabilidade para lidar com sudden trafego alto de usuarios sem passar mal (autoscaling)
+-Flexibilidade para adicionar novas aplicacoes na nuvem sem esforco  (blz)
+-Futuro prova (So meter mais processador no app servico plano)
 
 Proposta tecnica
 
 -Deploy a aplicacao em duas regioes diferentes
--Database server compartilhado entre todas as aplicacoes. Possui failover group em outra regiao - shared
+-Database server compartilhado entre todas as aplicacoes. Possui failover group em outra regiao - shared (failover dream morreu, ver abaixo)
 -Azure front door para gerenciar trafego para aplicacao mais proxima geograficamente - shared
 -Storage account GRS por aplicacao para armazenamento de media
--CDN com caching para entrega da midia - shared
--KeyVault para guardar informacoes/secrets da aplicacao - shared? 
+-Azure CDN (ou front door) com caching para entrega da midia - shared
+-KeyVault para guardar informacoes/secrets da aplicacao - Acho que sera shared, n sei ainda 
 
 Azure specifics
 
@@ -39,3 +39,12 @@ Azure specifics
 -Recovery Services Vault para back up do banco ou de alguma coisa (pesquisar sobre)
 -Monitoramento com Application Insights - OUT porque app insights so pra .net app;
 -MariaDB ou MySQL pro db server?
+
+-Availability Tests
+-DB mysql com geo redundant backup
+-1 VNET por regiao mesmo
+-Lembrar de mencionar que dev test e prod sao 3 subscriptions diferentes, porem os templates sao para 1 subscription so pra agilizar
+-CDN acho que sera Azure CDN mesmo pq qnd vc carrega um html vc tem o link da img do blob storage e ai o Azure CDN se vira pra achar o point of presence mais proximo, entao sera azure cdn msm por causa do storage account
+-Ainda falando de storage account, pasta wp-content parece ser a pasta das midias, entao jogar essa pasta no storage account figurativamente no devops desenhos
+-Recovery Services Vault sem utilizacao. Verificar se ele funciona pro mysql
+-App insights possivel

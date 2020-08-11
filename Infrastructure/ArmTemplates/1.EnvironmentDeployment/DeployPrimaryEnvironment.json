@@ -14,7 +14,7 @@
     },
     "resources": [
         {
-            "name": "deployStorage",
+            "name": "storageAccountDeployment",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-10-01",
             "properties": {

@@ -1,0 +1,52 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "templateSettings": {
+            "type": "object",
+            "metadata": {
+                "description": "Common arm template settings: appName, templateBaseUrl and environment"
+            }
+        }
+    },
+    "functions": [],
+    "variables": {},
+    "resources": [
+        {
+            "name": "keyVaultDeployment",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(parameters('templateSettings').templateBaseUrl, '/composed/Storage/DeployKeyVault.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "templateSettings": {
+                        "value": "[parameters('templateSettings')]"
+                    }
+                }
+            }
+        },
+        {
+            "name": "mysqlServerDeployment",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "dependsOn": [
+                "keyVaultDeployment"
+            ],
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(parameters('templateSettings').templateBaseUrl, '/composed/Storage/DeployMySql.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parametersLink": {
+                    "uri": "[concat(parameters('templateSettings').templateBaseUrl, '/composed/Storage/Parameters/DeployMySql.parameters.wow.', parameters('templateSettings').environment, '.json')]"
+                }
+            }
+        }
+    ],
+    "outputs": {}
+}
