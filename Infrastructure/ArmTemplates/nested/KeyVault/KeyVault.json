@@ -2,12 +2,6 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "name": {
-            "type": "string"
-        },
-        "appName": {
-            "type": "string"
-        },
         "environment": {
             "type": "string",
             "metadata": {
@@ -64,7 +58,7 @@
     },
     "functions": [],
     "variables": {
-        "keyVaultName": "[concat('kv-', parameters('appName'), parameters('environment'))]"
+        "keyVaultName": "[concat('kv-shared-', parameters('environment'), '-', resourceGroup().location)]"
     },
     "resources": [
         {
