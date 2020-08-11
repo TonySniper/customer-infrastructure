@@ -2,6 +2,12 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
+        "keyVaultName": {
+            "type": "string",
+            "metadata": {
+                "description": "Name of the KeyVault which stores the connection string"
+            }
+        },
         "templateSettings": {
             "type": "object",
             "metadata": {
@@ -55,10 +61,13 @@
         }
     },
     "functions": [],
-    "variables": {},
+    "variables": {
+        "serverName": "[concat('mysql-', parameters('templateSettings').appName, '-', parameters('templateSettings').environment, '-', resourceGroup().location)]",
+        "sqlDeploymentName": "mySqlDeployment"
+    },
     "resources": [
         {
-            "name": "mySqlDeployment",
+            "name": "[variables('sqlDeploymentName')]",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-10-01",
             "properties": {
@@ -69,7 +78,7 @@
                 },
                 "parameters": {
                     "serverName": {
-                        "value": "[concat('mysql-', parameters('templateSettings').appName, '-', parameters('templateSettings').environment, '-', resourceGroup().location)]"
+                        "value": "[variables('serverName')]"
                     },
                     "databaseName": {
                         "value": "[parameters('databaseName')]"
@@ -101,6 +110,32 @@
                     "geoRedundantBackup": {
                         "value": "[parameters('geoRedundantBackUp')]"
                     }                    
+                }
+            }
+        },
+        {
+            "name": "addDbConnectionStringToKeyVault",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "dependsOn": [
+                "[variables('sqlDeploymentName')]"
+            ],
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(parameters('templateSettings').templateBaseUrl, '/nested/KeyVault/AddKeyVaultSecret.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "keyVaultName": {
+                        "value": "[parameters('keyVaultName')]"
+                    },
+                    "secretName": {
+                        "value": "[concat(parameters('templateSettings').appName, parameters('databaseName'))]"
+                    },
+                    "secretValue": {
+                        "value": "[concat('Database=', parameters('databaseName'), ';Data Source=', variables('serverName') ,'.mysql.database.azure.com;User Id=',parameters('administratorLogin'),'@',variables('serverName') ,';Password=',parameters('administratorLoginPassword'))]"
+                    }
                 }
             }
         }
