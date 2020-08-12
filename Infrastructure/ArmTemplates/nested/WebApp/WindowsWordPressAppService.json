@@ -60,7 +60,7 @@
                         },
                         {
                             "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
-                            "value": "[reference(concat('microsoft.insights/components/', variables('appInsightsName'), '2015-05-01')).InstrumentationKey]"
+                            "value": "[reference(concat('microsoft.insights/components/', variables('appInsightsName')), '2015-05-01').InstrumentationKey]"
                         },
                         {
                             "name": "XDT_MicrosoftApplicationInsights_Mode",
