@@ -1,2 +1,2 @@
 Get-AzResourceGroup -Verbose | Remove-AzResourceGroup -Verbose -Force
-Get-AzKeyVault -Verbose | Remove-AzKeyVault -InRemovedState -Location westeurope
+Get-AzKeyVault -InRemovedState -Verbose | Remove-AzKeyVault -InRemovedState -Force -Verbose
