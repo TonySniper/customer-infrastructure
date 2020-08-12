@@ -37,7 +37,10 @@
             "value": 7
         },
         "geoRedundantBackup": {
-            "value": "Enabled"
+            "value": "Disabled"
+        },        
+        "keyVaultName": {
+            "value": "kv-shared-dev-westeurope"
         }
     }
 }

@@ -2,20 +2,29 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "appName": {
-            "type": "string"
-        },
-        "templateBaseUrl": {
-            "type": "string"
+        "templateSettings": {
+            "type": "object",
+            "metadata": {
+                "description": "Common arm template settings: appName, templateBaseUrl and environment"
+            }
         },
         "appServicePlanSettings": {
             "type": "object"
+        },
+        "keyVaultName": {
+            "type": "string"
+        },
+        "secretName": {
+            "type": "string",
+            "metadata": {
+                "description": "description"
+            }
         }
     },
     "functions": [],
     "variables": {
-        "appServicePlanTemplateUrl": "[concat(parameters('templateBaseUrl'), '/nested/AppServicePlan/LinuxAppServicePlan.json')]",
-        "webAppTemplateUrl": "[concat(parameters('templateBaseUrl'), '/nested/WebApp/LinuxAppService.json')]",
+        "appServicePlanTemplateUrl": "[concat(parameters('templateSettings').templateBaseUrl, '/nested/AppServicePlan/WindowsAppServicePlan.json')]",
+        "webAppTemplateUrl": "[concat(parameters('templateSettings').templateBaseUrl, '/nested/WebApp/WindowsWordPressAppService.json')]",
 
         "appServicePlanDeploymentName": "deployAppServicePlan"
     },
@@ -35,7 +44,7 @@
                         "value": "[parameters('appServicePlanSettings').sku]"
                     },
                     "appName": {
-                        "value": "[parameters('appName')]"
+                        "value": "[parameters('templateSettings').appName]"
                     }
                 }
             }
@@ -55,7 +64,18 @@
                 },
                 "parameters": {
                     "appName": {
-                        "value": "[parameters('appName')]"
+                        "value": "[parameters('templateSettings').appName]"
+                    },
+                    "environment": {
+                        "value": "[parameters('templateSettings').environment]"
+                    },
+                    "connectionString": {
+                        "reference": {
+                            "keyVault": {
+                                "id": "[resourceId(subscription().subscriptionId, resourceGroup().name, 'Microsoft.KeyVault/vaults', parameters('keyVaultName'))]"
+                            },
+                            "secretName": "[parameters('secretName')]"
+                        }
                     },
                     "appServicePlanName": {
                         "value": "[reference(variables('appServicePlanDeploymentName')).outputs.appServicePlanName.value]"

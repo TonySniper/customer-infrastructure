@@ -131,7 +131,7 @@
                         "value": "[parameters('keyVaultName')]"
                     },
                     "secretName": {
-                        "value": "[concat(parameters('templateSettings').appName, parameters('databaseName'))]"
+                        "value": "[concat(parameters('databaseName'), 'ConnectionString')]"
                     },
                     "secretValue": {
                         "value": "[concat('Database=', parameters('databaseName'), ';Data Source=', variables('serverName') ,'.mysql.database.azure.com;User Id=',parameters('administratorLogin'),'@',variables('serverName') ,';Password=',parameters('administratorLoginPassword'))]"
