@@ -35,7 +35,8 @@ Azure specifics
 -Db sera MySQL no Azure com failover groups. 1 Para todos apps 
 -Storage account GRS ou LRS. 1 por app
 -Azure front door com CDN (talvez trocar cdn pelo Azure CDN)
--Ainda nao foi nada decidido sobre VNETs, talvez 1 vnet por regiao 
+-Ainda nao foi nada decidido sobre VNETs, talvez 1 vnet por regiao
+-Talvez vnet ja era, vamo deixa pra dps 
 -Recovery Services Vault para back up do banco ou de alguma coisa (pesquisar sobre)
 -Monitoramento com Application Insights - OUT porque app insights so pra .net app;
 -MariaDB ou MySQL pro db server?
@@ -48,3 +49,27 @@ Azure specifics
 -Ainda falando de storage account, pasta wp-content parece ser a pasta das midias, entao jogar essa pasta no storage account figurativamente no devops desenhos
 -Recovery Services Vault sem utilizacao. Verificar se ele funciona pro mysql
 -App insights possivel
+
+-DevTest Labs pra dev e test (n sei nd vou so citar)
+
+Qq falta fazer
+
+-Availability Tests
+-Auto scaling
+-Separar db creation do server creation
+-Separar app insights creation do webapps
+-Add front door (wip) + w/e config q ele precicsa pros app
+-Storage account ligando no webapp ou vice versa
+-Add ALERTAS
+-Add action groups pros alertas ai de cima (mandar um email e ok)
+-Monitoramento com sei la o que (n app insaits)
+-CDN com Azuro CDN ou front door
+-Ver se recovery services vaults eh util pra algo
+-Double check back up do storage account
+-Pensar como caraios ter HA no banco ou algum backup (manda um ps fazer tlvz)
+-Reestruturar como os parametros tao sendo passado no arm template pq ta virando putaria isso ja
+-Fazer um arm template de "deploy td" decente. 
+-Arrumar o deploy shared e deploy non shared arm template
+-Segurança
+-Segurança
+-Segurança

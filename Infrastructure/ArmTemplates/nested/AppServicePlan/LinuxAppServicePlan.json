@@ -25,11 +25,7 @@
             "sku": {
                 "name": "[parameters('sku').name]"
             },
-            "kind": "linux",
-            "properties": {
-                "perSiteScaling": false,
-                "reserved": true
-            }
+            "kind": "linux"
         }
     ],
     "outputs": {
