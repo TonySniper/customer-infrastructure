@@ -97,7 +97,6 @@
                 }
             ],
             "dependsOn": [
-                "[concat('Microsoft.Web/serverfarms/', parameters('appServicePlanName'))]",
                 "[concat('microsoft.insights/components/', variables('webAppPortalName'))]"
             ],
             "apiVersion": "2018-11-01",

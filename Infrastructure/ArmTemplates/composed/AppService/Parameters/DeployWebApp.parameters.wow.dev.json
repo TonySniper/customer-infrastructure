@@ -9,7 +9,10 @@
                 }
             }
         },
-        "connectionString": {
+        "keyVaultName": {
+            "value": "kv-shared-dev-westeurope"
+        },
+        "secretName": {
             "value": "wowdbConnectionString"
         },
         "templateSettings": {

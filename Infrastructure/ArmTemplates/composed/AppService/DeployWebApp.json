@@ -14,6 +14,10 @@
         "keyVaultName": {
             "type": "string"
         },
+        "keyVaultResourceGroupName": {
+            "type": "string",
+            "defaultValue": "[concat('rg-shared-', parameters('templateSettings').environment, '-', resourceGroup().location)]"
+        },
         "secretName": {
             "type": "string",
             "metadata": {
@@ -54,7 +58,7 @@
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-10-01",
             "dependsOn": [
-                "deployAppServicePlan"
+                "[variables('appServicePlanDeploymentName')]"
             ],
             "properties": {
                 "mode": "Incremental",
@@ -72,7 +76,7 @@
                     "connectionString": {
                         "reference": {
                             "keyVault": {
-                                "id": "[resourceId(subscription().subscriptionId, resourceGroup().name, 'Microsoft.KeyVault/vaults', parameters('keyVaultName'))]"
+                                "id": "[resourceId(subscription().subscriptionId, parameters('keyVaultResourceGroupName'), 'Microsoft.KeyVault/vaults', parameters('keyVaultName'))]"
                             },
                             "secretName": "[parameters('secretName')]"
                         }
