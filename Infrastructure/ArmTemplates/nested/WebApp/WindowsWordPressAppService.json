@@ -95,10 +95,7 @@
                         "IsManualIntegration": true
                     }
                 }
-            ],
-            "dependsOn": [
-                "[concat('microsoft.insights/components/', variables('appInsightsName'))]"
-            ],
+            ],            
             "apiVersion": "2018-11-01",
             "location": "[parameters('location')]"
         },
