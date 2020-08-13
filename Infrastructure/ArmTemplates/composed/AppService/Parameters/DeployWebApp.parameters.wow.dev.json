@@ -12,6 +12,9 @@
         "keyVaultName": {
             "value": "kv-shared-dev-westeurope"
         },
+        "keyVaultResourceGroupName": {
+            "value": "rg-shared-dev-westeurope"
+        },
         "secretName": {
             "value": "wowdbConnectionString"
         },

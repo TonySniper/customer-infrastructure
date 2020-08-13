@@ -15,8 +15,7 @@
             "type": "string"
         },
         "keyVaultResourceGroupName": {
-            "type": "string",
-            "defaultValue": "[concat('rg-shared-', parameters('templateSettings').environment, '-', resourceGroup().location)]"
+            "type": "string"
         },
         "secretName": {
             "type": "string",
