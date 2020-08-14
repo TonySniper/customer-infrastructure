@@ -26,13 +26,6 @@
         },
         "secretName": {
             "value": "wowdbConnectionString"
-        },
-        "templateSettings": {
-            "value": {
-                "environment": "dev",
-                "appName": "wow",
-                "templateBaseUrl": "https://raw.githubusercontent.com/TonySniper/customer-infrastructure/master/Infrastructure/ArmTemplates"
-            }
         }
     }
 }
