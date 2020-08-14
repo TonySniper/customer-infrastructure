@@ -1,13 +1,19 @@
 {
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
-    "parameters": {
-        "templateSettings": {
-            "type": "object",
-            "metadata": {
-                "description": "Common arm template settings: appName, templateBaseUrl and environment"
-            }
+    "parameters": { 
+         "environment": {
+            "type": "string"
         },
+        "appName": {
+            "type": "string"
+        },
+        "templateBaseUrl": {
+            "type": "string",
+            "metadata": {
+                "description": "Base URL for the linked arm template files"
+            }
+        },       
         "appServicePlanSettings": {
             "type": "object"
         },
@@ -26,8 +32,8 @@
     },
     "functions": [],
     "variables": {
-        "appServicePlanTemplateUrl": "[concat(parameters('templateSettings').templateBaseUrl, '/nested/AppServicePlan/WindowsAppServicePlan.json')]",
-        "webAppTemplateUrl": "[concat(parameters('templateSettings').templateBaseUrl, '/nested/WebApp/WindowsWordPressAppService.json')]",
+        "appServicePlanTemplateUrl": "[concat(parameters('templateBaseUrl'), '/nested/AppServicePlan/WindowsAppServicePlan.json')]",
+        "webAppTemplateUrl": "[concat(parameters('templateBaseUrl'), '/nested/WebApp/WindowsWordPressAppService.json')]",
 
         "appServicePlanDeploymentName": "deployAppServicePlan"
     },
@@ -47,7 +53,7 @@
                         "value": "[parameters('appServicePlanSettings').sku]"
                     },
                     "appName": {
-                        "value": "[parameters('templateSettings').appName]"
+                        "value": "[parameters('appName')]"
                     }
                 }
             }
@@ -67,10 +73,10 @@
                 },
                 "parameters": {
                     "appName": {
-                        "value": "[parameters('templateSettings').appName]"
+                        "value": "[parameters('appName')]"
                     },
                     "environment": {
-                        "value": "[parameters('templateSettings').environment]"
+                        "value": "[parameters('environment')]"
                     },
                     "connectionString": {
                         "reference": {

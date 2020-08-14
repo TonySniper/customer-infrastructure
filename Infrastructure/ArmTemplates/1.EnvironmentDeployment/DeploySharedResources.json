@@ -5,9 +5,6 @@
          "environment": {
             "type": "string"
         },
-        "appName": {
-            "type": "string"
-        },
         "templateBaseUrl": {
             "type": "string",
             "metadata": {

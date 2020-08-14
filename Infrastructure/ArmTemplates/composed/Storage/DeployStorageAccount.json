@@ -2,10 +2,16 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "templateSettings": {
-            "type": "object",
+         "environment": {
+            "type": "string"
+        },
+        "appName": {
+            "type": "string"
+        },
+        "templateBaseUrl": {
+            "type": "string",
             "metadata": {
-                "description": "Common arm template settings: appName, templateBaseUrl and environment"
+                "description": "Base URL for the linked arm template files"
             }
         },
         "containerName": {
@@ -27,15 +33,15 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[concat(parameters('templateSettings').templateBaseUrl, '/nested/StorageAccount/StorageAccount.json')]",
+                    "uri": "[concat(parameters('templateBaseUrl'), '/nested/StorageAccount/StorageAccount.json')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
                     "appName": {
-                        "value": "[parameters('templateSettings').appName]"
+                        "value": "[parameters('appName')]"
                     },
                     "environment": {
-                        "value": "[parameters('templateSettings').environment]"
+                        "value": "[parameters('environment')]"
                     },
                     "sku": {
                         "value": "[parameters('sku')]"
@@ -53,7 +59,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[concat(parameters('templateSettings').templateBaseUrl, '/nested/StorageAccount/BlobContainer.json')]",
+                    "uri": "[concat(parameters('templateBaseUrl'), '/nested/StorageAccount/BlobContainer.json')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
