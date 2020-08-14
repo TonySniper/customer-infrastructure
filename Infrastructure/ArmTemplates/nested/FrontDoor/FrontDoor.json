@@ -1,13 +1,7 @@
 {
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
-    "parameters": {
-        "backendAddress": {
-            "type": "string",
-            "metadata": {
-                "description": "The hostname of the backend. Must be an IP address or FQDN."
-            }
-        },
+    "parameters": {        
         "appName": {
             "type": "string",
             "metadata": {
@@ -16,6 +10,12 @@
         },
         "environment": {
             "type": "string",
+            "metadata": {
+                "description": "description"
+            }
+        },
+        "backendPool": {
+            "type": "object",
             "metadata": {
                 "description": "description"
             }
@@ -88,15 +88,18 @@
                     {
                         "name": "[variables('backendPoolName')]",
                         "properties": {
-                            "backends": [
+                            "copy": [
                                 {
-                                    "address": "[parameters('backendAddress')]",
-                                    "backendHostHeader": "[parameters('backendAddress')]",
-                                    "httpPort": 80,
-                                    "httpsPort": 443,
-                                    "weight": 50,
-                                    "priority": 1,
-                                    "enabledState": "Enabled"
+                                    "name": "backends",
+                                    "count": "[length(parameters('backendPool').backends)]",
+                                    "input": {
+                                        "address": "[parameters('backendPool').backends[copyIndex('backends')].address]",
+                                        "httpPort": "[parameters('backendPool').backends[copyIndex('backends')].httpPort]",
+                                        "httpsPort": "[parameters('backendPool').backends[copyIndex('backends')].httpsPort]",
+                                        "weight": "[parameters('backendPool').backends[copyIndex('backends')].weight]",
+                                        "priority": "[parameters('backendPool').backends[copyIndex('backends')].priority]",
+                                        "enabledState": "[parameters('backendPool').backends[copyIndex('backends')].enabledState]"
+                                    }
                                 }
                             ],
                             "loadBalancingSettings": {

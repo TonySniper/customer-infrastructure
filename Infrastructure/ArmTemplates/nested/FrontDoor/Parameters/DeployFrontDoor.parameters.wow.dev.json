@@ -4,10 +4,10 @@
     "parameters": {
         "backendPool": {
             "value": {
-                "name": "backendPool1",
+                "name": "wow-dev-backendPool",
                 "backends": [
                     {
-                        "address": "contoso.com",
+                        "address": "app-wow-dev-northeurope.azurewebsites.net",
                         "httpPort": 80,
                         "httpsPort": 443,
                         "weight": 50,
@@ -15,7 +15,7 @@
                         "enabledState": "Enabled"
                     },
                     {
-                        "address": "contoso.com",
+                        "address": "app-wow-dev-westeurope.azurewebsites.net",
                         "httpPort": 80,
                         "httpsPort": 443,
                         "weight": 50,
