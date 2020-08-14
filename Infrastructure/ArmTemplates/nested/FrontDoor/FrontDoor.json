@@ -40,7 +40,7 @@
             "properties": {
                 "routingRules": [
                     {
-                        "name": "[concat(variables('settingsName'), '-forwardtraffic-')]",
+                        "name": "[concat(variables('settingsName'), '-forwardtraffic')]",
                         "properties": {
                             "frontendEndpoints": [
                                 {
@@ -70,7 +70,7 @@
                         "name": "[variables('healthProbeSettings')]",
                         "properties": {
                             "path": "/",
-                            "protocol": "Http",
+                            "protocol": "Https",
                             "intervalInSeconds": 120
                         }
                     }

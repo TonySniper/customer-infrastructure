@@ -2,15 +2,22 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "templateSettings": {
-            "type": "object",
+        "environment": {
+            "type": "string"
+        },
+        "appName": {
+            "type": "string"
+        },
+        "templateBaseUrl": {
+            "type": "string",
             "metadata": {
-                "description": "Common arm template settings: appName, templateBaseUrl and environment"
+                "description": "Base URL for the linked arm template files"
             }
         }
     },
     "functions": [],
     "variables": {
+        "templateParameterFileName": "[concat('.parameters.', parameters('appName'), '.', parameters('environment'), '.json')]"
     },
     "resources": [
         {
@@ -20,11 +27,26 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[concat(parameters('templateSettings').templateBaseUrl, '/composed/Storage/DeployStorageAccount.json')]",
+                    "uri": "[concat(parameters('templateBaseUrl'), '/composed/Storage/DeployStorageAccount.json')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parametersLink": {
-                    "uri": "[concat(parameters('templateSettings').templateBaseUrl, '/composed/Storage/Parameters/DeployStorageAccount.parameters.wow.', parameters('templateSettings').environment, '.json')]"
+                    "uri": "[concat(parameters('templateBaseUrl'), '/composed/Storage/Parameters/DeployStorageAccount', variables('templateParameterFileName'))]"
+                }
+            }
+        },
+        {
+            "name": "webAppDeployment",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(parameters('templateBaseUrl'), '/composed/WebApp/DeployWebApp.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parametersLink": {
+                    "uri": "[concat(parameters('templateBaseUrl'), '/composed/WebApp/Parameters/DeployWebApp', variables('templateParameterFileName'))]"
                 }
             }
         }

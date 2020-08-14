@@ -72,7 +72,7 @@ Qq falta fazer
 -Add ALERTAS
 -Add action groups pros alertas ai de cima (mandar um email e ok)
 -Monitoramento com sei la o que (n app insaits)
--CDN com Azuro CDN ou front door
+-CDN com Azuro CDN ou front door <- 
 -Ver se recovery services vaults eh util pra algo
 -Double check back up do storage account
 -Pensar como caraios ter HA no banco ou algum backup (manda um ps fazer tlvz)
@@ -84,3 +84,8 @@ Qq falta fazer
 -Segurança
 -Front door CDN eh o dobro do preco do azuro CDN
 -USAR cdn; menos coisa pra ter trampo
+-HA para CDN: 2 CDN c/ diferentes providers (ex: MS + Akamai) e um trafic manager/front door em cima
+-Dashboard de metricas bacanas (n tera)
+-Metrica alerts para: banco/server - app - storage continhas? - porta da frente? - cdn?
+-Action grupos pros alertas
+-Acho que seguranca n vai rolar tanto assim
