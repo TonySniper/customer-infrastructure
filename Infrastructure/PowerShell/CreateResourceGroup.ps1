@@ -27,12 +27,8 @@ param (
     $location
 )
 
-Write-Host 'Creating primary prod resource group'
-#New-AzSubscriptionDeployment -Location $location `
-#    -TemplateFile '.\ArmTemplates\ResourceGroup\CreateResourceGroup.json' `
-#    -TemplateParameterFile '.\ArmTemplates\ResourceGroup\CreateResourceGroup.parameters.wow.prod.json' `
-#    -Verbose
-
-New-AzSubscriptionDeployment -Name "DeployResourceGroup-$location" -Location $location `
-    -TemplateFile '.\ArmTemplates\ResourceGroup\CreateResourceGroup.json' `
-    -Verbose
+Write-Host 'Creating dev resource group'
+New-AzSubscriptionDeployment -Name "DeployAppResourceGroup-$location" ` -Location $location `
+   -TemplateFile '.\ArmTemplates\ResourceGroup\CreateResourceGroup.json' `
+   -TemplateParameterFile '.\ArmTemplates\ResourceGroup\CreateResourceGroup.parameters.wow.dev.json' `
+   -Verbose
