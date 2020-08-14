@@ -2,12 +2,14 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "templateSettings": {
-            "value": {
-                "environment": "dev",
-                "appName": "wow",
-                "templateBaseUrl": "https://raw.githubusercontent.com/TonySniper/customer-infrastructure/master/Infrastructure/ArmTemplates"
-            }
+        "environment": {
+            "value": "dev"
+        },
+        "appName": {
+            "value": "wow"
+        },
+        "templateBaseUrl": {
+            "value": "https://raw.githubusercontent.com/TonySniper/customer-infrastructure/master/Infrastructure/ArmTemplates"
         },
         "sku": {
             "value": {
