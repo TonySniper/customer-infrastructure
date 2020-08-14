@@ -27,7 +27,8 @@
         "settingsName": "[concat(parameters('appName'), '-', parameters('environment'))]",
         "healthProbeSettings": "[concat(variables('settingsName'), '-healthProbeSettings')]",
         "loadBalancingSettings": "[concat(variables('settingsName'), '-loadBalancingSettings')]",
-        "frontendEndpoint": "[concat(variables('settingsName'), '-frontendEndpoint')]"
+        "frontendEndpoint": "[concat(variables('settingsName'), '-frontendEndpoint')]",
+        "backendPoolName": "[concat(variables('settingsName'), '-backendPool')]"
     },
     "resources": [
         {
@@ -57,7 +58,7 @@
                                 "@odata.type": "#Microsoft.Azure.FrontDoor.Models.FrontdoorForwardingConfiguration",                                
                                 "forwardingProtocol": "MatchRequest",
                                 "backendPool": {
-                                    "id": "[resourceId('Microsoft.Network/frontDoors/backendPools', variables('frontDoorName'), 'backendPool1')]"
+                                    "id": "[resourceId('Microsoft.Network/frontDoors/backendPools', variables('frontDoorName'), variables('backendPoolName'))]"
                                 }                                
                             },
                             "enabledState": "Enabled"
@@ -85,7 +86,7 @@
                 ],
                 "backendPools": [
                     {
-                        "name": "[concat(variables('settingsName'), '-backendPool')]",
+                        "name": "[variables('backendPoolName')]",
                         "properties": {
                             "backends": [
                                 {
