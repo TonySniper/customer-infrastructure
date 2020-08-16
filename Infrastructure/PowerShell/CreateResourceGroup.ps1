@@ -29,6 +29,6 @@ param (
 
 Write-Host 'Creating dev resource group'
 New-AzSubscriptionDeployment -Name "DeployAppResourceGroup-$location" ` -Location $location `
-   -TemplateFile '.\ArmTemplates\ResourceGroup\CreateResourceGroup.json' `
-   -TemplateParameterFile '.\ArmTemplates\ResourceGroup\CreateResourceGroup.parameters.wow.dev.json' `
+   -TemplateFile '.\ArmTemplates\0.ResourceGroup\CreateResourceGroup.json' `
+   -TemplateParameterFile '.\ArmTemplates\0.ResourceGroup\CreateResourceGroup.parameters.wow.dev.json' `
    -Verbose

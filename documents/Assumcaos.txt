@@ -63,22 +63,19 @@ ALTERNATIVAS
 
 Qq falta fazer
 
+-Separar db creation do server creation <- nao mais
+-Separar app insights creation do webapps <- nao mais
 -Availability Tests
--Auto scaling
--Separar db creation do server creation
--Separar app insights creation do webapps
 -Add front door (wip) + w/e config q ele precicsa pros app
 -Storage account ligando no webapp ou vice versa
 -Add ALERTAS
 -Add action groups pros alertas ai de cima (mandar um email e ok)
--Monitoramento com sei la o que (n app insaits)
--CDN com Azuro CDN ou front door <- 
+-CDN com Azuro CDN ou front door 
 -Ver se recovery services vaults eh util pra algo
 -Double check back up do storage account
 -Pensar como caraios ter HA no banco ou algum backup (manda um ps fazer tlvz)
--Reestruturar como os parametros tao sendo passado no arm template pq ta virando putaria isso ja
--Fazer um arm template de "deploy td" decente. 
--Arrumar o deploy shared e deploy non shared arm template
+
+
 -Segurança
 -Segurança
 -Segurança
@@ -89,3 +86,15 @@ Qq falta fazer
 -Metrica alerts para: banco/server - app - storage continhas? - porta da frente? - cdn?
 -Action grupos pros alertas
 -Acho que seguranca n vai rolar tanto assim
+-Autoscale email alerts
+
+Oq ta feito
+
+-Auto scaling 
+-Reestruturar como os parametros tao sendo passado no arm template pq ta virando putaria isso ja 
+-Fazer um arm template de "deploy td" decente. 
+-Arrumar o deploy shared e deploy non shared arm template
+
+Oq fiz neste domingo
+
+-Auto scaling 

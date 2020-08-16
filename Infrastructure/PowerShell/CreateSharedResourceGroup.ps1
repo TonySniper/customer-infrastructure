@@ -31,5 +31,5 @@ Write-Host 'Creating shared resource group'
 
 New-AzSubscriptionDeployment -Name "DeployResourceGroup-$location" `
     -Location $location `
-    -TemplateFile '.\ArmTemplates\ResourceGroup\CreateSharedResourceGroup.json' `
+    -TemplateFile '.\ArmTemplates\0.ResourceGroup\CreateSharedResourceGroup.json' `
     -Verbose

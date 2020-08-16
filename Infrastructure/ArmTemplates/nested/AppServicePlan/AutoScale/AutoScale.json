@@ -69,7 +69,7 @@
       }
     },
     "variables": {
-      "settingName": "[concat(toLower(parameters('svcPlanName')), '-setting')]",
+      "settingName": "[concat(parameters('svcPlanName'), '-setting')]",
       "targetResourceId": "[resourceId('Microsoft.Web/serverFarms/', parameters('svcPlanName'))]"
     },
     "resources": [      
