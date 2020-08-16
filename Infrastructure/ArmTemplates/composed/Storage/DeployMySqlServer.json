@@ -11,9 +11,6 @@
                 "description": "Base URL for the linked arm template files"
             }
         },
-        "databaseName": {
-            "type": "string"
-        },
         "administratorLogin": {
             "type": "string"
         },
@@ -76,9 +73,6 @@
                 "parameters": {
                     "serverName": {
                         "value": "[variables('serverName')]"
-                    },
-                    "databaseName": {
-                        "value": "[parameters('databaseName')]"
                     },
                     "administratorLogin": {
                         "value": "[parameters('administratorLogin')]"

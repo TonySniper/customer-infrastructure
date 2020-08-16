@@ -1,3 +1,3 @@
 ﻿New-AzResourceGroupDeployment -Name "TestDeploySQL" `
--TemplateFile .\ArmTemplates\composed\Storage\DeployMySql.json `
--TemplateParameterFile .\ArmTemplates\composed\Storage\Parameters\DeployMySql.parameters.wow.dev.json -Verbose
+-TemplateFile .\ArmTemplates\composed\Storage\DeployMySqlServer.json `
+-TemplateParameterFile .\ArmTemplates\composed\Storage\Parameters\DeployMySqlServer.parameters.wow.dev.json -Verbose
