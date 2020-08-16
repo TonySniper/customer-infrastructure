@@ -33,7 +33,7 @@
             "type": "string",
             "defaultValue": "https://github.com/azureappserviceoss/wordpress-azure",
             "metadata": {
-                "description": "Used for simplicity's sake of the test (same for the 'branch' property). Real life scenarios would have apps deployed through your favorite CI/CD platform (Azure DevOps, Gitlab, etc)"
+                "description": "Used for simplicity's sake of the test (same for the 'branch' property of the 'sourcecontrol' object). Real life scenarios would have apps deployed through your favorite CI/CD platform (Azure DevOps, Gitlab, etc)"
             }
         }
     },

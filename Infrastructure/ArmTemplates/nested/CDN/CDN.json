@@ -42,8 +42,8 @@
         }
     },
     "variables": {
-        "cdnProfileName": "[concat('cdn-', parameters('appName'), '-', parameters('environment'), '-', parameters('location'))]",
-        "cdnEndpointName": "[concat('cdnendpoint-', parameters('appName'), '-', parameters('environment'), '-', parameters('location'))]",
+        "cdnProfileName": "[concat('cdn-profile-', parameters('appName'), '-', parameters('environment'), '-', parameters('location'))]",
+        "cdnEndpointName": "[concat('cdn-endpoint-', parameters('appName'), '-', parameters('environment'), '-', parameters('location'))]",
         "originName": "[replace(parameters('originUrl'), '.', '-')]"
     },
     "resources": [
@@ -51,10 +51,11 @@
             "name": "[variables('cdnProfileName')]",
             "type": "Microsoft.Cdn/profiles",
             "location": "[parameters('location')]",
-            "apiVersion": "2019-12-31",
+            "apiVersion": "2019-12-31",    
             "sku": {
                 "name": "[parameters('CDNSku')]"
             },
+            "properties": {},
             "resources": [
                 {
                     "apiVersion": "2019-12-31",
