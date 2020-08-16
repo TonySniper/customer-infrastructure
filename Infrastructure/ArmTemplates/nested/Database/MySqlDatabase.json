@@ -18,18 +18,18 @@
     "functions": [],
     "variables": {},
     "resources": [
-         {
-                    "name": "[parameters('databaseName')]",
-                    "type": "Microsoft.DBforMySQL/servers/databases",
-                    "apiVersion": "2017-12-01-preview",
-                    "properties": {
-                        "charset": "utf8",
-                        "collation": "utf8_general_ci"
-                    },
-                    "dependsOn": [
-                        "[concat('Microsoft.DBforMySQL/servers/', parameters('serverName'))]"
-                    ]
-                }
+        {
+            "name": "[parameters('databaseName')]",
+            "type": "Microsoft.DBforMySQL/servers/databases",
+            "apiVersion": "2017-12-01-preview",
+            "properties": {
+                "charset": "utf8",
+                "collation": "utf8_general_ci"
+            },
+            "dependsOn": [
+                "[concat('Microsoft.DBforMySQL/servers/', parameters('serverName'))]"
+            ]
+        }
     ],
     "outputs": {}
 }

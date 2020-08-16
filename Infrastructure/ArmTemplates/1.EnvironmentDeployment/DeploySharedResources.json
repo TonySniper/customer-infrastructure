@@ -3,7 +3,13 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
          "environment": {
-            "type": "string"
+            "type": "string",
+            "allowedValues": [
+                "dev",
+                "test",
+                "acc",
+                "prod"
+            ]
         },
         "templateBaseUrl": {
             "type": "string",
@@ -15,22 +21,7 @@
     "functions": [],
     "variables": {        
     },
-    "resources": [
-        {
-            "name": "keyVaultDeployment",
-            "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2019-10-01",
-            "properties": {
-                "mode": "Incremental",
-                "templateLink": {
-                    "uri": "[concat(parameters('templateBaseUrl'), '/composed/Storage/DeployKeyVault.json')]",
-                    "contentVersion": "1.0.0.0"
-                },
-                "parametersLink": {
-                    "uri": "[concat(parameters('templateBaseUrl'), '/composed/Storage/Parameters/DeployKeyVault.parameters.', parameters('environment'), '.json')]"
-                }
-            }
-        },
+    "resources": [        
         {
             "name": "mysqlServerDeployment",
             "type": "Microsoft.Resources/deployments",
@@ -41,11 +32,11 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[concat(parameters('templateBaseUrl'), '/composed/Storage/DeployMySql.json')]",
+                    "uri": "[concat(parameters('templateBaseUrl'), '/composed/Storage/DeployMySqlServer.json')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parametersLink": {
-                    "uri": "[concat(parameters('templateBaseUrl'), '/composed/Storage/Parameters/DeployMySql.parameters.wow.', parameters('environment'), '.json')]"
+                    "uri": "[concat(parameters('templateBaseUrl'), '/composed/Storage/Parameters/DeployMySqlServer.parameters.wow.', parameters('environment'), '.json')]"
                 }
             }
         }

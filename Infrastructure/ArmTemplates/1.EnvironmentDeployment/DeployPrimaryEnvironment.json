@@ -17,9 +17,42 @@
     },
     "functions": [],
     "variables": {
-        "templateParameterFileName": "[concat('.parameters.', parameters('appName'), '.', parameters('environment'), '.json')]"
+        "templateParameterFileName": "[concat('.parameters.', parameters('appName'), '.', parameters('environment'), '.json')]",
+        "keyVaultDeploymentName": "keyVaultDeployment",
+        "databaseDeploymentName": "databaseDeployment"
     },
     "resources": [
+        {
+            "name": "[variables('keyVaultDeploymentName')]",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(parameters('templateBaseUrl'), '/composed/Storage/DeployKeyVault.json')]"
+                },
+                "parametersLink": {
+                    "uri": "[concat(parameters('templateBaseUrl'), '/composed/Storage/Parameters/DeployKeyVault.parameters.', parameters('environment'), '.json')]"
+                }
+            }
+        },
+        {
+            "name": "[variables('databaseDeploymentName')]",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "dependsOn": [
+                "[variables('keyVaultDeploymentName')]"
+            ],
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(parameters('templateBaseUrl'), '/composed/Storage/DeployMySqlDatabase.json')]"
+                },
+                "parameters": {
+                    "uri": "[concat(parameters('templateBaseUrl'), '/composed/Storage/Parameters/DeployMySqlDatabase.parameters.', parameters('environment'), '.json')]"
+                }
+            }
+        },
         {
             "name": "storageAccountDeployment",
             "type": "Microsoft.Resources/deployments",
@@ -39,6 +72,9 @@
             "name": "webAppDeployment",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-10-01",
+            "dependsOn": [
+                "[variables('databaseDeploymentName')]"
+            ],
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {

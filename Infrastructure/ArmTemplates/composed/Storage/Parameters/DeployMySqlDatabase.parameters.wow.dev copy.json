@@ -2,6 +2,9 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
+        "appName": {
+            "value": "wow"
+        },
         "environment": {
             "value": "dev"
         },
@@ -17,29 +20,11 @@
         "administratorLoginPassword": {
             "value": "TestPass@123"
         },
-        "skuName": {
-            "value": "GP_Gen5_2"
-        },
-        "skuSizeMB": {
-            "value": 102400
-        },
-        "skuTier": {
-            "value": "GeneralPurpose"
-        },
-        "skuCapacity": {
-            "value": 2
-        },
-        "skuFamily": {
-            "value": "Gen5"
-        },
-        "backupRetentionDays": {
-            "value": 7
-        },
-        "geoRedundantBackup": {
-            "value": "Disabled"
-        },        
         "keyVaultName": {
-            "value": "kv-shared-dev-westeurope"
+            "value": "kv-wow-dev-westeurope"
+        },
+        "serverName": {
+            "value": "mysql-dev-westeurope"
         }
     }
 }

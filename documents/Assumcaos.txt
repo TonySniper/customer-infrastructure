@@ -86,6 +86,7 @@ Qq falta fazer
 -Action grupos pros alertas
 -Acho que seguranca n vai rolar tanto assim
 -Autoscale email alerts
+-TAGS
 
 Oq ta feito
 

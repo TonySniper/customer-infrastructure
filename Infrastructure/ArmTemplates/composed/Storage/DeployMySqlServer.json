@@ -1,13 +1,7 @@
 {
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
-    "parameters": {
-        "keyVaultName": {
-            "type": "string",
-            "metadata": {
-                "description": "Name of the KeyVault which stores the connection string"
-            }
-        },
+    "parameters": {        
         "environment": {
             "type": "string"
         },
@@ -113,32 +107,6 @@
                     "geoRedundantBackup": {
                         "value": "[parameters('geoRedundantBackUp')]"
                     }                    
-                }
-            }
-        },
-        {
-            "name": "addDbConnectionStringToKeyVault",
-            "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2019-10-01",
-            "dependsOn": [
-                "[variables('sqlDeploymentName')]"
-            ],
-            "properties": {
-                "mode": "Incremental",
-                "templateLink": {
-                    "uri": "[concat(parameters('templateBaseUrl'), '/nested/KeyVault/AddKeyVaultSecret.json')]",
-                    "contentVersion": "1.0.0.0"
-                },
-                "parameters": {
-                    "keyVaultName": {
-                        "value": "[parameters('keyVaultName')]"
-                    },
-                    "secretName": {
-                        "value": "[concat(parameters('databaseName'), 'ConnectionString')]"
-                    },
-                    "secretValue": {
-                        "value": "[concat('Database=', parameters('databaseName'), ';Data Source=', variables('serverName') ,'.mysql.database.azure.com;User Id=',parameters('administratorLogin'),'@',variables('serverName') ,';Password=',parameters('administratorLoginPassword'))]"
-                    }
                 }
             }
         }
