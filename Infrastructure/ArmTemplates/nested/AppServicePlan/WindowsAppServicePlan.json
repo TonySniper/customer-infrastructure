@@ -12,13 +12,12 @@
         "sku": {
             "type": "object"
         },
-        "autoscaleEnabled": {
-            "type": "bool",
-            "defaultValue": false
+        "environment": {
+            "type": "string"
         }
     },
     "variables": {
-        "appServicePlanName": "[concat('asp-', parameters('appName'))]"
+        "appServicePlanName": "[concat('asp-', parameters('appName'), '-', parameters('environment'), '-', parameters('location'))]"
     },
     "resources": [        
         {

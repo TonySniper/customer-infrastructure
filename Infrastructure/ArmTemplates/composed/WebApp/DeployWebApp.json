@@ -54,6 +54,9 @@
                     },
                     "appName": {
                         "value": "[parameters('appName')]"
+                    },
+                    "environment": {
+                        "value": "[parameters('environment')]"
                     }
                 }
             }
