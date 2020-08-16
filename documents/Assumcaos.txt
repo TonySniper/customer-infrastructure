@@ -61,29 +61,25 @@ ALTERNATIVAS
 -Ainda falando dos 2 DB serves acima, pra manter eles com dados parecidos, a cada X horas rodar um job que faz um backup do DB primario, joga o .bac numa storage account, qnd esse storage account for modificado, LogicApp/EventGrid/EventHub (eu nunca sei qual eh qual) triggera algo que sobe o .bac pro DB secundario. Mto feio porem fazer o que.
 -O msm pode ser dito pra storage account. So tem 1 agr com alguma redundancia, mas creio que isso n da HA.
 
+Coisas
+
+-Front door CDN eh o dobro do preco do azuro CDN
+-HA para CDN: 2 CDN c/ diferentes providers (ex: MS + Akamai) e um trafic manager/front door em cima
+-Ver se recovery services vaults eh util pra algo <- N eh
+-Dashboard de metricas bacanas (n tera)
+
 Qq falta fazer
 
--Separar db creation do server creation <- nao mais
 -Separar app insights creation do webapps <- nao mais
 -Availability Tests
-
 -Add ALERTAS
 -Add action groups pros alertas ai de cima (mandar um email e ok)
--CDN com Azuro CDN ou front door 
--Ver se recovery services vaults eh util pra algo <- no
 -Double check back up do storage account
 -Pensar como caraios ter HA no banco ou algum backup (manda um ps fazer tlvz)
-
-
 -Segurança
 -Segurança
 -Segurança
--Front door CDN eh o dobro do preco do azuro CDN
--USAR cdn; menos coisa pra ter trampo
--HA para CDN: 2 CDN c/ diferentes providers (ex: MS + Akamai) e um trafic manager/front door em cima
--Dashboard de metricas bacanas (n tera)
 -Metrica alerts para: banco/server - app - storage continhas? - porta da frente? - cdn?
--Action grupos pros alertas
 -Acho que seguranca n vai rolar tanto assim
 -Autoscale email alerts
 -TAGS
@@ -96,9 +92,5 @@ Oq ta feito
 -Arrumar o deploy shared e deploy non shared arm template
 -Add front door (wip) + w/e config q ele precicsa pros app
 -Storage account ligando no webapp ou vice versa
-
-Oq fiz neste domingo
-
--Auto scaling 
--Add front door (wip) + w/e config q ele precicsa pros app
--Storage account ligando no webapp ou vice versa
+-Separar db creation do server creation 
+-CDN com Azuro CDN 
