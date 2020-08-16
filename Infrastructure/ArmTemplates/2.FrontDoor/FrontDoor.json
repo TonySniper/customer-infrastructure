@@ -94,6 +94,7 @@
                                     "count": "[length(parameters('backendPool').backends)]",
                                     "input": {
                                         "address": "[parameters('backendPool').backends[copyIndex('backends')].address]",
+                                        "backendHostHeader": "[parameters('backendPool').backends[copyIndex('backends')].backendHostHeader]",
                                         "httpPort": "[parameters('backendPool').backends[copyIndex('backends')].httpPort]",
                                         "httpsPort": "[parameters('backendPool').backends[copyIndex('backends')].httpsPort]",
                                         "weight": "[parameters('backendPool').backends[copyIndex('backends')].weight]",
