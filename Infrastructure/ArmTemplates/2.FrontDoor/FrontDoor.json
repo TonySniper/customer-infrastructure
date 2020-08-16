@@ -71,7 +71,7 @@
                         "properties": {
                             "path": "/",
                             "protocol": "Https",
-                            "intervalInSeconds": 120
+                            "intervalInSeconds": 30
                         }
                     }
                 ],
