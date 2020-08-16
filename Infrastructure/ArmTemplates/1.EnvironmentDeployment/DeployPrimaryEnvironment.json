@@ -48,7 +48,7 @@
                 "templateLink": {
                     "uri": "[concat(parameters('templateBaseUrl'), '/composed/Storage/DeployMySqlDatabase.json')]"
                 },
-                "parameters": {
+                "parametersLink": {
                     "uri": "[concat(parameters('templateBaseUrl'), '/composed/Storage/Parameters/DeployMySqlDatabase.parameters.', parameters('environment'), '.json')]"
                 }
             }
@@ -73,7 +73,8 @@
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-10-01",
             "dependsOn": [
-                "[variables('databaseDeploymentName')]"
+                "[variables('databaseDeploymentName')]",
+                "[variables('keyVaultDeploymentName')]"
             ],
             "properties": {
                 "mode": "Incremental",

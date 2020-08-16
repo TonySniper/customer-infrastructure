@@ -1,7 +1,10 @@
 {
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
-    "parameters": {        
+    "parameters": {   
+        "appName": {
+            "type": "string"
+        },
         "environment": {
             "type": "string"
         },
@@ -72,6 +75,9 @@
                     "uri": "[concat(parameters('templateBaseUrl'), '/nested/KeyVault/KeyVault.json')]"
                 },
                 "parameters": {
+                    "appName": {
+                        "value": "[parameters('appName')]"
+                    },
                     "environment": {
                         "value": "[parameters('environment')]"
                     },
