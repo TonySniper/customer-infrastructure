@@ -75,10 +75,7 @@
     "resources": [      
       {
         "type": "Microsoft.Insights/autoscalesettings",
-        "name": "[variables('settingName')]",
-        "dependsOn": [
-          "[resourceId('Microsoft.Web/serverfarms', parameters('svcPlanName'))]"
-        ],
+        "name": "[variables('settingName')]",        
         "apiVersion": "2014-04-01",
         "location": "[resourceGroup().location]",
         "properties": {

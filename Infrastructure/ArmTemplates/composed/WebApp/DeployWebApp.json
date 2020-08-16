@@ -62,13 +62,21 @@
             "name": "deployAutoScale",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-10-01",
+            "dependsOn": [
+                "[variables('appServicePlanDeploymentName')]"
+            ],
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[concat(parameters('templateBaseUrl'), '/nested/AppServicePlan/AutoScale/Autoscale.json')]"
+                    "uri": "[concat(parameters('templateBaseUrl'), '/nested/AppServicePlan/AutoScale/AutoScale.json')]"
                 },
-                "parameters": {
-                    "autoscaleEnabled": true
+                "parameters": {                    
+                    "autoscaleEnabled": {
+                        "value": true
+                    },
+                    "svcPlanName": {
+                        "value": "[reference(variables('appServicePlanDeploymentName')).outputs.appServicePlanName.value]"
+                    }
                 }
             }
         },
