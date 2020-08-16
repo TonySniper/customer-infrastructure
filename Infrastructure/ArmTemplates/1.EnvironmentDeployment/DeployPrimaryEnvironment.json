@@ -32,7 +32,7 @@
                     "uri": "[concat(parameters('templateBaseUrl'), '/composed/Storage/DeployKeyVault.json')]"
                 },
                 "parametersLink": {
-                    "uri": "[concat(parameters('templateBaseUrl'), '/composed/Storage/Parameters/DeployKeyVault.parameters', variables('templateParameterFileName'))]"
+                    "uri": "[concat(parameters('templateBaseUrl'), '/composed/Storage/Parameters/DeployKeyVault', variables('templateParameterFileName'))]"
                 }
             }
         },
@@ -49,7 +49,7 @@
                     "uri": "[concat(parameters('templateBaseUrl'), '/composed/Storage/DeployMySqlDatabase.json')]"
                 },
                 "parametersLink": {
-                    "uri": "[concat(parameters('templateBaseUrl'), '/composed/Storage/Parameters/DeployMySqlDatabase.parameters', variables('templateParameterFileName'))]"
+                    "uri": "[concat(parameters('templateBaseUrl'), '/composed/Storage/Parameters/DeployMySqlDatabase', variables('templateParameterFileName'))]"
                 }
             }
         },
