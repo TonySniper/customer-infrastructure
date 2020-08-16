@@ -19,7 +19,7 @@
     "variables": {},
     "resources": [
         {
-            "name": "[parameters('databaseName')]",
+            "name": "[concat(parameters('serverName'), '/', parameters('databaseName'))]",
             "type": "Microsoft.DBforMySQL/servers/databases",
             "apiVersion": "2017-12-01-preview",
             "properties": {
