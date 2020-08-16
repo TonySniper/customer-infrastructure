@@ -21,7 +21,10 @@
         {
             "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
             "apiVersion": "2019-06-01",
-            "name": "[concat(parameters('storageAccountName'), '/default/', parameters('containerName'))]"
+            "name": "[concat(parameters('storageAccountName'), '/default/', parameters('containerName'))]",
+            "properties": {
+                "publicAccess": "Blob"
+            }
         }
     ],
     "outputs": {}
