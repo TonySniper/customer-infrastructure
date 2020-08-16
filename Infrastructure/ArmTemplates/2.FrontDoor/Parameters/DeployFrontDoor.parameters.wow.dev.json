@@ -14,6 +14,7 @@
                 "backends": [
                     {
                         "address": "app-wow-dev-northeurope.azurewebsites.net",
+                        "backendHostHeader": "app-wow-dev-northeurope.azurewebsites.net",
                         "httpPort": 80,
                         "httpsPort": 443,
                         "weight": 50,
@@ -22,6 +23,7 @@
                     },
                     {
                         "address": "app-wow-dev-westeurope.azurewebsites.net",
+                        "backendHostHeader": "app-wow-dev-westeurope.azurewebsites.net",
                         "httpPort": 80,
                         "httpsPort": 443,
                         "weight": 50,
