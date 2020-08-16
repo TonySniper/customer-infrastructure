@@ -66,12 +66,11 @@ Qq falta fazer
 -Separar db creation do server creation <- nao mais
 -Separar app insights creation do webapps <- nao mais
 -Availability Tests
--Add front door (wip) + w/e config q ele precicsa pros app
--Storage account ligando no webapp ou vice versa
+
 -Add ALERTAS
 -Add action groups pros alertas ai de cima (mandar um email e ok)
 -CDN com Azuro CDN ou front door 
--Ver se recovery services vaults eh util pra algo
+-Ver se recovery services vaults eh util pra algo <- no
 -Double check back up do storage account
 -Pensar como caraios ter HA no banco ou algum backup (manda um ps fazer tlvz)
 
@@ -94,7 +93,11 @@ Oq ta feito
 -Reestruturar como os parametros tao sendo passado no arm template pq ta virando putaria isso ja 
 -Fazer um arm template de "deploy td" decente. 
 -Arrumar o deploy shared e deploy non shared arm template
+-Add front door (wip) + w/e config q ele precicsa pros app
+-Storage account ligando no webapp ou vice versa
 
 Oq fiz neste domingo
 
 -Auto scaling 
+-Add front door (wip) + w/e config q ele precicsa pros app
+-Storage account ligando no webapp ou vice versa

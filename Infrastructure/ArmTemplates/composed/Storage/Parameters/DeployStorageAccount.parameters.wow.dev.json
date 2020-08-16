@@ -13,7 +13,7 @@
         },
         "sku": {
             "value": {
-                "name": "Standard_LRS",
+                "name": "Standard_ZRS",
                 "tier": "Standard"
             }
         },
