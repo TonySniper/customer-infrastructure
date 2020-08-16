@@ -71,6 +71,32 @@
                     }
                 }
             }
+        },
+        {
+            "name": "deployCdn",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "dependsOn": [
+                "[variables('storageAccountDeploymentName')]",
+
+            ], 
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(parameters('templateBaseUrl'), '/nested/CDN/CDN.json')]"
+                },
+                "parameters": {
+                    "appName": {
+                        "value": "[parameters('appName')]"
+                    },
+                    "environment": {
+                        "value": "[parameters('environment')]"
+                    },
+                    "originUrl": {
+                        "value": "[concat(reference(variables('storageAccountDeploymentName')).outputs.storageAccountName.value, '.blob.core.windows.net')]"
+                    }
+                }
+            }
         }
     ],
     "outputs": {}
