@@ -46,7 +46,7 @@ Azure specifics
 -1 VNET por regiao mesmo
 -Lembrar de mencionar que dev test e prod sao 3 subscriptions diferentes, porem os templates sao para 1 subscription so pra agilizar
 -CDN acho que sera Azure CDN mesmo pq qnd vc carrega um html vc tem o link da img do blob storage e ai o Azure CDN se vira pra achar o point of presence mais proximo, entao sera azure cdn msm por causa do storage account
--Ainda falando de storage account, pasta wp-content parece ser a pasta das midias, entao jogar essa pasta no storage account figurativamente no devops desenhos
+-Ainda falando de storage account, pasta wp-content parece ser a pasta das midias, entao jogar essa pasta no storage account figurativamente no devops desenhos <- Plugin do wordpress se vira
 -Recovery Services Vault sem utilizacao. Verificar se ele funciona pro mysql
 -App insights possivel
 
@@ -83,6 +83,7 @@ Qq falta fazer
 -Acho que seguranca n vai rolar tanto assim
 -Autoscale email alerts
 -TAGS
+-RBAC entre AppService -> KeyVault
 
 Oq ta feito
 
