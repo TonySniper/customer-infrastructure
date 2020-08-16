@@ -25,10 +25,7 @@
             "properties": {
                 "charset": "utf8",
                 "collation": "utf8_general_ci"
-            },
-            "dependsOn": [
-                "[concat('Microsoft.DBforMySQL/servers/', parameters('serverName'))]"
-            ]
+            }
         }
     ],
     "outputs": {}

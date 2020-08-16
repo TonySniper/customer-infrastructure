@@ -19,6 +19,9 @@
         },
         "administratorPassword": {
             "type": "string"
+        },
+        "databaseServerResourceGroup": {
+            "type": "string"
         }
     },
     "functions": [],
@@ -30,6 +33,7 @@
         {
             "name": "[variables('sqlDatabaseDeploymentName')]",
             "type": "Microsoft.Resources/deployments",
+            "resourceGroup": "[parameters('databaseServerResourceGroup')]",
             "apiVersion": "2019-10-01",
             "properties": {
                 "mode": "Incremental",

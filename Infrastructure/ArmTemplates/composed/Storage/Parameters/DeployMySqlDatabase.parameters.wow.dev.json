@@ -19,6 +19,9 @@
         },
         "serverName": {
             "value": "mysql-dev-westeurope"
+        },
+        "databaseServerResourceGroup": {
+            "value": "rg-shared-dev-westeurope"
         }
     }
 }
