@@ -59,6 +59,20 @@
             }
         },
         {
+            "name": "deployAutoScale",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(parameters('templateBaseUrl'), '/nested/AppServicePlan/AutoScale/Autoscale.json')]"
+                },
+                "parameters": {
+                    "autoscaleEnabled": true
+                }
+            }
+        },
+        {
             "name": "deployWebApp",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-10-01",

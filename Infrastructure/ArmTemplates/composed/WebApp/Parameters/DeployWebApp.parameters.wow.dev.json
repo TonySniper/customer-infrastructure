@@ -14,7 +14,7 @@
         "appServicePlanSettings": {
             "value": {
                 "sku": {
-                    "name": "B1"
+                    "name": "s1"
                 }
             }
         },

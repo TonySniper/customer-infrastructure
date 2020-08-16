@@ -2,117 +2,25 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "serverName": {
-            "type": "string",
-            "metadata": {
-                "description": "description"
-            }
-        },
         "databaseName": {
             "type": "string",
             "metadata": {
                 "description": "description"
             }
         },
-        "location": {
+        "serverName": {
             "type": "string",
-            "defaultValue": "[resourceGroup().location]",
             "metadata": {
                 "description": "description"
             }
-        },
-        "administratorLogin": {
-            "type": "string",
-            "minLength": 1,
-            "metadata": {
-                "description": "Database administrator login name"
-            }
-        },
-        "administratorLoginPassword": {
-            "type": "string",
-            "minLength": 8,
-            "maxLength": 128,
-            "metadata": {
-                "description": "Database administrator password"
-            }
-        },
-        "version": {
-            "type": "string",
-            "allowedValues": [
-                "5.6",
-                "5.7"
-            ],
-            "defaultValue": "5.7",
-            "metadata": {
-                "description": "MySQL version"
-            }
-        },
-        "skuName": {
-            "type": "string"
-        },
-        "skuSizeMB": {
-            "type": "int"
-        },
-        "skuTier": {
-            "type": "string"
-        },
-        "skuCapacity": {
-            "type": "int"
-        },
-        "skuFamily": {
-            "type": "string"
-        },
-        "backupRetentionDays": {
-            "type": "int"
-        },
-        "geoRedundantBackup": {
-            "type": "string"
         }
     },
     "functions": [],
     "variables": {},
     "resources": [
-        {
-            "name": "[parameters('serverName')]",
-            "type": "Microsoft.DBforMySQL/servers",
-            "apiVersion": "2017-12-01-preview",
-            "location": "[parameters('location')]",
-            "properties": {
-                "version": "[parameters('version')]",
-                "administratorLogin": "[parameters('administratorLogin')]",
-                "administratorLoginPassword": "[parameters('administratorLoginPassword')]",
-                "storageProfile": {
-                    "storageMB": "[parameters('skuSizeMB')]",
-                    "backupRetentionDays": "[parameters('backupRetentionDays')]",
-                    "geoRedundantBackup": "[parameters('geoRedundantBackup')]"
-                },
-                "sslEnforcement": "Disabled"
-            },
-            "sku": {
-                "name": "[parameters('skuName')]",
-                "tier": "[parameters('skuTier')]",
-                "capacity": "[parameters('skuCapacity')]",
-                "size": "[parameters('skuSizeMB')]",
-                "family": "[parameters('skuFamily')]"
-            },
-            "resources": [
-                {
-                    "name": "AllowAll",
-                    "type": "firewallrules",
-                    "apiVersion": "2017-12-01-preview",
-                    "properties": {
-                        "startIpAddress": "0.0.0.0",
-                        "endIpAddress": "255.255.255.255"
-                    },
-                    "location": "[parameters('location')]",
-                    "dependsOn": [
-                        "[concat('Microsoft.DBforMySQL/servers/', parameters('serverName'), '/databases/' , parameters('databaseName'))]",
-                        "[concat('Microsoft.DBforMySQL/servers/', parameters('serverName'))]"
-                    ]
-                },
-                {
+         {
                     "name": "[parameters('databaseName')]",
-                    "type": "databases",
+                    "type": "Microsoft.DBforMySQL/servers/databases",
                     "apiVersion": "2017-12-01-preview",
                     "properties": {
                         "charset": "utf8",
@@ -122,11 +30,6 @@
                         "[concat('Microsoft.DBforMySQL/servers/', parameters('serverName'))]"
                     ]
                 }
-            ],
-            "tags": {
-                "AppProfile": "Wordpress"
-            }
-        }
     ],
     "outputs": {}
 }

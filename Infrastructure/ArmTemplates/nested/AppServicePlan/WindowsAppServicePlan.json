@@ -11,6 +11,10 @@
         },
         "sku": {
             "type": "object"
+        },
+        "autoscaleEnabled": {
+            "type": "bool",
+            "defaultValue": false
         }
     },
     "variables": {
