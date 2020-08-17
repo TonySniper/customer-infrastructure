@@ -37,19 +37,54 @@ Dado a reuniao que tivemos, gostariamos de apresentar nossa proposta tecnica par
 
 #6 Infraestrutura explicada - multiplos islaides
 
+#6.1
 -Applicacoes serao hosteadas em AppServices
+-Cada AppService tera sua propria regra de auto scaling
+-Podemos escalar com base em metricas de utilizacao
+-Tambem podemos agendar o auto scaling para datas e periodos especificos
+-AppServices tera Application Insights para monitoramento
+
+#6.2
 -Para atingir HA, cada aplicacao sera hosteada em duas regioes diferentes
 -Um Azure Front door ficara encarregado de rotear as requests para o servidor disponivel mais proximo do usuario
+
+#6.3 shared
 -Cada aplicacao tera 1 storage account para guardar midia. O storage account possui ZRS como metodo de replicacao
 -Havera um CDN endpoint para este storage account. 
+-Nao foi utilizado o CDN do front door pelo fato do custo ser o dobro em relacao ao CDN padrao
 -Um KeyVault por aplicacao para guardar configuracoes importantes como connection strings e similares
--Um database server compartilhado por todas as aplicacoes
--Cada aplicacao tera um database no database server
--Cada aplicacao tera application insights para monitoramento
 -A aplicacao da regiao #2 acessara o storage account, cdn e keyvault que existem na regiao #1
 
+#6.4 Database
+-Um database server compartilhado por todas as aplicacoes
+-Cada aplicacao tera um database no database server
+
+#7 DevOps
+-Para poder entregar as mudancas feitas constantemente pelos devs, sera providenciada um ambiente de DevOps
+
+#7.1 Desenho DevOps
+
+#7.2
+-Cada aplicacao ira possuir seu proprio Build e Release pipeline que sera utilizado para entregar as mudancas a infra Azure
+-As mudancas na infraestrutura Azure tambem serao entregues pelo Azure DevOps.
+    -Havera um pipeline que ira fazer deploy completo da infra
+    -Havera pipelines especificos para cada componente, por ex, se quisermos atualizar as configs do AppServicePlan, faremos deploy somente do pipeline que cuida disso (open to debate)
+
+#7.3
+-Para fazer o onboard de uma aplicacao wordpress nova, precisamos:
+-Criar infra azure com o pipeline de deploy ambiente no Azure DevOps
+-Criar um build e release pipeline para a aplicacao
+
+#8 Futuro proof
+-A infra atual esta em ARM Templates, o que da maior facilidade e confiabilidade para alterar a infraestrutura
+-Cada app pode ter uma infra com configuracoes distintas dos outros apps (ex: app service de um tier maior do que o dos outros)
+    -Para conseguir isso, basta alterar os arquivos de parametros para aquele app
+-E possivel adicionar novos recursos para alguns ou todos apps, basta criar um Arm Template para aquilo e integrar no template principal de infra
+
+#9 Fim
+-Msg de fim
+
 #coisas pra dps
--Nao foi utilizado o CDN do Front Door pelo fato de custar o dobro do CDN padrao
 -Sugestao de diferentes subscriptions pra Dev/Test/Prod
 
 -KeyVault para guardar informacoes/secrets da aplicacao - Acho que sera shared, n sei ainda 
