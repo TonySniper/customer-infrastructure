@@ -48,8 +48,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[concat(parameters('templateBaseUrl'), '/nested/Monitoring/ActionGroups.json')]",
-                    "contentVersion": "1.0.0.0"
+                    "uri": "[concat(parameters('templateBaseUrl'), '/nested/Monitoring/ActionGroups.json')]"
                 },
                 "parameters": {
                     "actionGroupName": {
@@ -74,8 +73,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[concat(parameters('templateBaseUrl'), '/composed/Storage/DeployMySqlServer.json')]",
-                    "contentVersion": "1.0.0.0"
+                    "uri": "[concat(parameters('templateBaseUrl'), '/composed/Storage/DeployMySqlServer.json')]"
                 },
                 "parametersLink": {
                     "uri": "[concat(parameters('templateBaseUrl'), '/composed/Storage/Parameters/DeployMySqlServer.parameters.wow.', parameters('environment'), '.json')]"
