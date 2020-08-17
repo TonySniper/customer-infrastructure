@@ -38,7 +38,7 @@ Dado a reuniao que tivemos, gostariamos de apresentar nossa proposta tecnica par
 #6 Infraestrutura explicada - multiplos islaides
 
 #6.1
--Applicacoes serao hosteadas em AppServices
+-Applicacoes serao hosteadas em AppServices. 
 -Cada AppService tera sua propria regra de auto scaling
 -Podemos escalar com base em metricas de utilizacao
 -Tambem podemos agendar o auto scaling para datas e periodos especificos
@@ -81,25 +81,27 @@ Dado a reuniao que tivemos, gostariamos de apresentar nossa proposta tecnica par
     -Para conseguir isso, basta alterar os arquivos de parametros para aquele app
 -E possivel adicionar novos recursos para alguns ou todos apps, basta criar um Arm Template para aquilo e integrar no template principal de infra
 
-#9 Fim
+#9 Custos estimados
+-Custos estimados por mes pra manter um ambiente com HA
+
+#10 Fim
 -Msg de fim
 
-#coisas pra dps
+#Apresentacao pro time dnv
+
+#11 Consideracoes finais
 -Sugestao de diferentes subscriptions pra Dev/Test/Prod
-
--KeyVault para guardar informacoes/secrets da aplicacao - Acho que sera shared, n sei ainda 
-
-Azure specifics
-
--Aplicacoes serao WebApps com PHP runtime (em andamento)
--Autoscaling pros webapps no app service plan
--RBAC pro KeyVault; RBAC remove o requerimento de credenciais
--Alertas pra coisas duvidosas com azure monitor
--Db sera MySQL no Azure com failover groups. 1 Para todos apps 
--Storage account GRS ou LRS. 1 por app
--Azure front door com CDN (talvez trocar cdn pelo Azure CDN)
--Ainda nao foi nada decidido sobre VNETs, talvez 1 vnet por regiao
--Talvez vnet ja era, vamo deixa pra dps 
--Recovery Services Vault para back up do banco ou de alguma coisa (pesquisar sobre)
--Monitoramento com Application Insights - OUT porque app insights so pra .net app;
--MariaDB ou MySQL pro db server?
+-Pensei em fazer networking porem dropei a ideia pra poder fazer o resto
+-Seguranca eh um item que nao pensei para o escopo desse teste, porem que seria importante num real life scenario
+-Alertas
+-Foi optado por utilizar PaaS para que o cliente focasse em desenvolver apps ao inves de gerenciar infra
+-O design atual nao garante um "real HA" para o banco de dados e para os storage accounts
+    -Ha como remediar isso fazendo deploy de cada um deles na regiao #2 e copiando os dados diariamente de um para o outros
+        -Para copiar as paradas, podemos ter um automation runbook que se encarrega disso
+-Para integrar com alguns servicos do Azure, assumo que o cliente ira utilizar plugins do wordpress. 
+    -Por ex, vi que tem plugin pra connect no storage account/cdn. Testei e funcionou.
+-Nao fui 100% clean no desenv dos arm templates
+    -Por exemplo, pra dados sensiveis, como user e pw do banco, nao usei secure string e passei como plain text. Ha outras coisas similares a esta nos templates
+        -Isso foi feito porque eu quis focar no geral ao inves de focar nos detalhes pequenos
+-Nunca mexi com Wordpress na vida e nao sabia como ele funcionava. Esta foi a parte mais dificil do projeto pra mim.
+-Botei bastante effort pra fazer tudo isso
