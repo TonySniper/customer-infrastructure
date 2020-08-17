@@ -2,7 +2,7 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-         "environment": {
+        "environment": {
             "type": "string",
             "allowedValues": [
                 "dev",
@@ -16,16 +16,61 @@
             "metadata": {
                 "description": "Base URL for the linked arm template files"
             }
+        },
+        "actionGroupName": {
+            "type": "string",
+            "metadata": {
+                "description": "description"
+            }
+        },
+        "actionGroupShortName": {
+            "type": "string",
+            "metadata": {
+                "description": "description"
+            }
+        },
+        "actionGroupEmailReceiver": {
+            "type": "string",
+            "metadata": {
+                "description": "description"
+            }
         }
     },
     "functions": [],
-    "variables": {        
+    "variables": {
+        "createActionGroupDeploymentName": "createActionGroupDeployment"
     },
-    "resources": [        
+    "resources": [
+        {
+            "name": "[variables('createActionGroupDeploymentName')]",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(parameters('templateBaseUrl'), '/nested/Monitoring/ActionGroups.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "actionGroupName": {
+                        "value": "[parameters('actionGroupName')]"
+                    },
+                    "actionGroupShortName": {
+                        "value": "[parameters('actionGroupShortName')]"
+                    },
+                    "emailReceiver": {
+                        "value": "[parameters('actionGroupEmailReceiver')]"
+                    }
+                }
+            }
+        },
         {
             "name": "mysqlServerDeployment",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-10-01",
+            "dependsOn": [
+                "[variables('createActionGroupDeploymentName')]"
+            ],
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {

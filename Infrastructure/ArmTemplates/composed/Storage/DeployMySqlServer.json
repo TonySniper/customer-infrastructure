@@ -52,12 +52,16 @@
         },
         "geoRedundantBackUp": {
             "type": "string"
-        }
+        },
+        "alertSettings": {
+            "type": "object"
+        }      
     },
     "functions": [],
     "variables": {
         "serverName": "[concat('mysql-', parameters('environment'), '-', resourceGroup().location)]",
-        "sqlDeploymentName": "mySqlDeployment"
+        "sqlDeploymentName": "mySqlDeployment",
+        "actionGroupId": "[resourceId('Microsoft.Insights/actionGroups',parameters('alertSettings').actionGroupName)]"
     },
     "resources": [
         {
@@ -67,7 +71,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[concat(parameters('templateBaseUrl'), '/nested/Database/MysqlServer.json')]",
+                    "uri": "[concat(parameters('templateBaseUrl'), '/nested/Database/MySqlServer.json')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
@@ -101,6 +105,90 @@
                     "geoRedundantBackup": {
                         "value": "[parameters('geoRedundantBackUp')]"
                     }                    
+                }
+            }
+        },
+        {
+            "name": "deployStorageMetricAlertsForMySqlServer",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(parameters('templateBaseUrl'), '/nested/Monitoring/Alerts/MetricAlert.json')]"
+                },
+                "parameters": {
+                    "alertName": {
+                        "value": "[parameters('alertSettings').storageAlertSettings.alertName]"
+                    },
+                    "actionGroupId": {
+                        "value": "[variables('actionGroupId')]"
+                    },
+                    "operator": {
+                        "value": "[parameters('alertSettings').storageAlertSettings.operator]"
+                    },
+                    "metricName": {
+                        "value": "[parameters('alertSettings').storageAlertSettings.metricName]"
+                    },
+                    "threshold": {
+                        "value": "[parameters('alertSettings').storageAlertSettings.threshold]"
+                    }
+                }
+            }
+        },
+        {
+            "name": "deployCpuMetricAlertsForMySqlServer",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(parameters('templateBaseUrl'), '/nested/Monitoring/Alerts/MetricAlert.json')]"
+                },
+                "parameters": {
+                    "alertName": {
+                        "value": "[parameters('alertSettings').cpuAlertSettings.alertName]"
+                    },
+                    "actionGroupId": {
+                        "value": "[variables('actionGroupId')]"
+                    },
+                    "operator": {
+                        "value": "[parameters('alertSettings').cpuAlertSettings.operator]"
+                    },
+                    "metricName": {
+                        "value": "[parameters('alertSettings').cpuAlertSettings.metricName]"
+                    },
+                    "threshold": {
+                        "value": "[parameters('alertSettings').cpuAlertSettings.threshold]"
+                    }
+                }
+            }
+        },
+        {
+            "name": "deployMemoryMetricAlertsForMySqlServer",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(parameters('templateBaseUrl'), '/nested/Monitoring/Alerts/MetricAlert.json')]"
+                },
+                "parameters": {
+                    "alertName": {
+                        "value": "[parameters('alertSettings').memoryAlertSettings.alertName]"
+                    },
+                    "actionGroupId": {
+                        "value": "[variables('actionGroupId')]"
+                    },
+                    "operator": {
+                        "value": "[parameters('alertSettings').memoryAlertSettings.operator]"
+                    },
+                    "metricName": {
+                        "value": "[parameters('alertSettings').memoryAlertSettings.metricName]"
+                    },
+                    "threshold": {
+                        "value": "[parameters('alertSettings').memoryAlertSettings.threshold]"
+                    }
                 }
             }
         }

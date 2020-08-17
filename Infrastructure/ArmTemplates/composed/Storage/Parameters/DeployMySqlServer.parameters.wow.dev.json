@@ -34,6 +34,31 @@
         },
         "geoRedundantBackup": {
             "value": "Disabled"
+        },
+        "alertSettings": {
+            "value": {
+                "actionGroupName": "infraSupportActionGroup",
+                "storageAlertSettings": {
+                    "alertName": "dbServerStorage",
+                    "operator": "GreaterThan",
+                    "metricName": "storage_percent",
+                    "threshold": "90"
+                },
+                "cpuAlertSettings": {
+                    "alertName": "dbServerCpuUsage",
+                    "actionGroupName": "infraSupportActionGroup",
+                    "operator": "GreaterThan",
+                    "metricName": "cpu_percent",
+                    "threshold": "90"
+                },
+                "memoryAlertSettings": {
+                    "alertName": "dbServerMemoryUsare",
+                    "actionGroupName": "infraSupportActionGroup",
+                    "operator": "GreaterThan",
+                    "metricName": "memory_percent",
+                    "threshold": "90"
+                }
+            }
         }
     }
 }

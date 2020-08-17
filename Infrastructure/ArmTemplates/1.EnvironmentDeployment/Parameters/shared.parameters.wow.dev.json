@@ -7,6 +7,15 @@
         },
         "templateBaseUrl": {
             "value": "https://raw.githubusercontent.com/TonySniper/customer-infrastructure/master/Infrastructure/ArmTemplates"
+        },
+        "actionGroupName": {
+            "value": "infraSupportActionGroup"
+        },
+        "actionGroupShortName": {
+            "value": "infraSupport"
+        },
+        "actionGroupEmailReceiver": {
+            "value": "antonio.risaldo@outlook.com"
         }
     }
 }
