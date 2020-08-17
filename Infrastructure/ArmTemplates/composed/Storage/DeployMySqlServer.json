@@ -71,7 +71,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[concat(parameters('templateBaseUrl'), '/nested/Database/MySqlServer.json')]",
+                    "uri": "[concat(parameters('templateBaseUrl'), '/nested/Database/MysqlServer.json')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
