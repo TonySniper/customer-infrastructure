@@ -67,22 +67,19 @@ Coisas
 -HA para CDN: 2 CDN c/ diferentes providers (ex: MS + Akamai) e um trafic manager/front door em cima
 -Ver se recovery services vaults eh util pra algo <- N eh
 -Dashboard de metricas bacanas (n tera)
+-Separar app insights creation do webapps <- nao mais
 
 Qq falta fazer
 
--Separar app insights creation do webapps <- nao mais
 -Availability Tests
 -Add ALERTAS
 -Add action groups pros alertas ai de cima (mandar um email e ok)
--Double check back up do storage account
--Pensar como caraios ter HA no banco ou algum backup (manda um ps fazer tlvz)
--Segurança
--Segurança
--Segurança
--Metrica alerts para: banco/server - app - storage continhas? - porta da frente? - cdn?
--Acho que seguranca n vai rolar tanto assim
 -Autoscale email alerts
--TAGS
+-Metrica alerts para: banco/server - app - storage continhas? - porta da frente? - cdn?
+-Double check back up do storage account <- ta lrz (n e backup)
+-Pensar como caraios ter HA no banco ou algum backup (manda um ps fazer tlvz)
+-Segurança <- n vai rola pelo visto
+-TAGS <- sei n
 -RBAC entre AppService -> KeyVault
 
 Oq ta feito

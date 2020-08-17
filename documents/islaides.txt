@@ -1,0 +1,70 @@
+#Apresentacao pro time
+
+#1 Contexto
+
+Meu cliente trabalha com aplicacoes wordpress e possui uma infra propria para hostead estas aplicacoes. Atualmente o cliente is facing algumas limitacoes em relacao a escalabilidade e reliabilidade da atual infra. 
+Foi feita uma reuniao com o cliente a fim de entender suas necessidades. O objetivo agora e migrar estas aplicacoes para a nuvem e providenciar uma infra solida para o cliente poder hostear as aplicacoes atuais e futuras. 
+
+#2 Situacao atual do cliente
+
+Com a reuniao que tivemos com o cliente, identificamos os seguintes detalhes tecnicos
+
+-10 aplicacoes wordpress replicados em dois servidores, o que da 20 aplicacoes no total 
+-1 banco de dados replicado em 2 servidores atras de um HA proxy pra ter HA
+-Alguns dos sites cresceram em popularidade e experienciam instabilidades em momentos especificos do dia devido ao alto trafego inesperado de usuarios
+-Somente aplicacoes wordpress serao desenvolvidas
+-5 aplicacoes serao add em doze meses.
+-Toda a infra e gerenciada pelo cliente (estou apenas assumindo)
+
+#3 O que o cliente gostaria
+
+Requisitos do cliente
+
+O cliente listou algumas de suas necessidades atuais e futuras
+
+-Alta disponibilidade HA
+-Escalabilidade para lidar com sudden trafego alto de usuarios sem passar mal 
+-Flexibilidade para adicionar novas aplicacoes na nuvem sem esforco 
+-Futuro prova 
+
+#Daqui em diante eh a apresentacao pro customer
+
+#4 Proposta tecnica
+
+Dado a reuniao que tivemos, gostariamos de apresentar nossa proposta tecnica para a migracao das atuais aplicacoes para a nuvem e apresentar o desenho de arquitetura da infra nuvem
+
+#5 Desenho arquitetura
+
+#6 Infraestrutura explicada - multiplos islaides
+
+-Applicacoes serao hosteadas em AppServices
+-Para atingir HA, cada aplicacao sera hosteada em duas regioes diferentes
+-Um Azure Front door ficara encarregado de rotear as requests para o servidor disponivel mais proximo do usuario
+-Cada aplicacao tera 1 storage account para guardar midia. O storage account possui ZRS como metodo de replicacao
+-Havera um CDN endpoint para este storage account. 
+-Um KeyVault por aplicacao para guardar configuracoes importantes como connection strings e similares
+-Um database server compartilhado por todas as aplicacoes
+-Cada aplicacao tera um database no database server
+-Cada aplicacao tera application insights para monitoramento
+-A aplicacao da regiao #2 acessara o storage account, cdn e keyvault que existem na regiao #1
+
+#coisas pra dps
+-Nao foi utilizado o CDN do Front Door pelo fato de custar o dobro do CDN padrao
+-Sugestao de diferentes subscriptions pra Dev/Test/Prod
+
+-KeyVault para guardar informacoes/secrets da aplicacao - Acho que sera shared, n sei ainda 
+
+Azure specifics
+
+-Aplicacoes serao WebApps com PHP runtime (em andamento)
+-Autoscaling pros webapps no app service plan
+-RBAC pro KeyVault; RBAC remove o requerimento de credenciais
+-Alertas pra coisas duvidosas com azure monitor
+-Db sera MySQL no Azure com failover groups. 1 Para todos apps 
+-Storage account GRS ou LRS. 1 por app
+-Azure front door com CDN (talvez trocar cdn pelo Azure CDN)
+-Ainda nao foi nada decidido sobre VNETs, talvez 1 vnet por regiao
+-Talvez vnet ja era, vamo deixa pra dps 
+-Recovery Services Vault para back up do banco ou de alguma coisa (pesquisar sobre)
+-Monitoramento com Application Insights - OUT porque app insights so pra .net app;
+-MariaDB ou MySQL pro db server?
