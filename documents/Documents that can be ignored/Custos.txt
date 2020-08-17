@@ -9,3 +9,21 @@ Capacity - 500gb
 ZRS: $24,72
 GRS: $50,33
 RA-GRS: $60,13
+
+Storage Account 200gb GRS - 7,84
+AppServices S1 2 Instances (1 per region) - 148,80
+CDN with 500GB traffic across all regions - 56,80
+Key vault - 0,18
+
+Total per environment - 213,62
+
+Shared
+
+Front Door with 1 routing rule and 100 GB outbound data transfer - 39.52
+Azure for MySql with 2 vCore and 200gb storage space + GRS - 206,23
+
+Standard Microsoft Support - 100
+
+Total everything 581.57
+
+
