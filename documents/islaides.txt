@@ -94,11 +94,12 @@ Dado a reuniao que tivemos, gostariamos de apresentar nossa proposta tecnica par
 -Sugestao de diferentes subscriptions pra Dev/Test/Prod
 -Pensei em fazer networking porem dropei a ideia pra poder fazer o resto
 -Seguranca eh um item que nao pensei para o escopo desse teste, porem que seria importante num real life scenario
--Alertas
+-Queria ter usado RBAC pra acessar Key Vault e outros servicos, porem acabei optando por apenas finalizar a entrega do projeto
 -Foi optado por utilizar PaaS para que o cliente focasse em desenvolver apps ao inves de gerenciar infra
 -O design atual nao garante um "real HA" para o banco de dados e para os storage accounts
     -Ha como remediar isso fazendo deploy de cada um deles na regiao #2 e copiando os dados diariamente de um para o outros
         -Para copiar as paradas, podemos ter um automation runbook que se encarrega disso
+-To aware dos latency issues que podem ser gerados pelo fato de que alguns apps nao estao na mesma regiao que a do db server
 -Para integrar com alguns servicos do Azure, assumo que o cliente ira utilizar plugins do wordpress. 
     -Por ex, vi que tem plugin pra connect no storage account/cdn. Testei e funcionou.
 -Nao fui 100% clean no desenv dos arm templates
