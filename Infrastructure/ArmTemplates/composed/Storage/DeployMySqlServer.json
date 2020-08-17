@@ -136,7 +136,9 @@
                     "threshold": {
                         "value": "[parameters('alertSettings').storageAlertSettings.threshold]"
                     },
-                    "resourceId": "[resourceId('Microsoft.DBforMySQL/servers', variables('serverName'))]"
+                    "resourceId": {
+                        "value": "[resourceId('Microsoft.DBforMySQL/servers', variables('serverName'))]"
+                    }
                 }
             }
         },
@@ -165,7 +167,9 @@
                     "threshold": {
                         "value": "[parameters('alertSettings').cpuAlertSettings.threshold]"
                     },
-                    "resourceId": "[resourceId('Microsoft.DBforMySQL/servers', variables('serverName'))]"
+                    "resourceId": {
+                        "value": "[resourceId('Microsoft.DBforMySQL/servers', variables('serverName'))]"
+                    }
                 }
             }
         },
@@ -194,7 +198,9 @@
                     "threshold": {
                         "value": "[parameters('alertSettings').memoryAlertSettings.threshold]"
                     },
-                    "resourceId": "[resourceId('Microsoft.DBforMySQL/servers', variables('serverName'))]"
+                    "resourceId": {
+                        "value": "[resourceId('Microsoft.DBforMySQL/servers', variables('serverName'))]"
+                    }
                 }
             }
         }
