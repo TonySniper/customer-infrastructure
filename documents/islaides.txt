@@ -42,7 +42,7 @@ Dado a reuniao que tivemos, gostariamos de apresentar nossa proposta tecnica par
 -Cada AppService tera sua propria regra de auto scaling
 -Podemos escalar com base em metricas de utilizacao
 -Tambem podemos agendar o auto scaling para datas e periodos especificos
--AppServices tera Application Insights para monitoramento
+-AppServices tera Application Insights para monitoramento e alertas para auto scaling
 
 #6.2
 -Para atingir HA, cada aplicacao sera hosteada em duas regioes diferentes
@@ -58,6 +58,7 @@ Dado a reuniao que tivemos, gostariamos de apresentar nossa proposta tecnica par
 #6.4 Database
 -Um database server compartilhado por todas as aplicacoes
 -Cada aplicacao tera um database no database server
+-Alertas de metricas para o server
 
 #7 DevOps
 -Para poder entregar as mudancas feitas constantemente pelos devs, sera providenciada um ambiente de DevOps
