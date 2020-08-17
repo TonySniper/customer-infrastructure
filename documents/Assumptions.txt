@@ -1,0 +1,89 @@
+This is my assumptions document which contains assumptions (how could you tell...)
+
+The document will be presented raw, that is, no proper formatting whatsoever. This is to be as natural as possible from the original assumptions document written in portuguese. 
+
+###########################
+
+Context of the customer
+
+-10 WordPress applications replicated between 2 servers, which gives us 20 applications in total
+-1 database server replicated in 2 servers/hardware/machines/whatever. They are behind a HA proxy to achieve HA
+-These database servers are managed by the customer
+-Some of their websites have grown in popularity and are expriencing instabilities in specific timeframes due to unexpected high traffic/high influx of users
+-The customer would like to migrate those applications to the public cloud
+-Only WordPress applications will be developed
+-5 applications will be added in the next 12 months
+
+#############################
+
+Customer requirements
+
+-High Availability
+-Scalability to deal with the sudden high user traffic (autoscaling)
+-Flexibility to add new applications to the cloud without too much effort (or no effort at all)
+-Future proof (just put more processors on the app service plan and we're good)
+
+###########################
+
+Tecnical proposal (don't even know if this is a real term in english tbh)
+
+-Deploy the application in two different regions
+-Database server shared between all applications. Will have failover groups on another region
+-Azure front door to route application traffic to the server closest to the user from a geographic standpoint 
+-Storage account GRS per application to store media
+-Azure CDN (or Front Door) with caching to deliver the media
+-Key Vault to store sensitive information/application secrets - maybe will be shared per application, idk
+
+#########################
+
+Azure specifics 
+
+-Applications are going to be Webapps with PHP runtime (WIP)
+-Autoscaling for the WebApps under the App Service plan
+-RBAC access to the KeyVault; RBAC removes the credentials requirement when accessing the KeyVault
+-Alerts for dubious stuff with Azure Monitor
+-Database will be MySql on Azure with failover groups. 1 Db server for all apps
+-Storage account GRS or LRS. 1 per app
+-Azure front door with CDN (maybe switch CDN to Azure CDN)
+-Still havent decided about VNETS, maybe 1 VNET per region
+-Maybe VNET is not gonna happen; leave it for later
+-Recovery Services Vault for database backup or something else (research about it)
+-Monitoring with Application insights - OUT because app insights is only for .net app (later on I found out Im not totally correct about this one)
+-MariaDB or MySql for the DB Server?
+
+########    A few days later... #########
+
+-Availability Tests
+-Db MySql with Geo Redundant backup
+-1 VNET per region
+-Remember to mention that dev test and prod are going to be 3 different subscriptions, but the ARM Templates are going to be based on a single subscription just to make things easier and faster from a development point of view
+-CDN is going to be Azure CDN because of POP Locations and something something storage Accounts
+-Talking about storage accounts, wp-contet folder seems to be the media folder, so we should just figuratively throw this folder on the storage account from the DevOps pipeline <- later on found out theres a WP plugin to handle this
+-Recovery Services Vault is useless for this case. Verify if it at least works for MySql DB
+-App Insights is possible.
+-DevTest Labs for Dev and Test (idk if I will mention this)
+
+
+#####################################
+
+ALTERNATIVES
+
+-Host front end on BlobStorage  (static website) and deliver it thru the CDN. (ex: angular site which makes API calls only). Idk how wordpress back end is, I would need more time to understand how wordpress works. PHP server is needed, but is everything static? I dont think so.
+-Kubernetes and AKS. Containerize the whole stack and throw it on AKS and from there we'll figure out how to to autoscaling and etc
+-Azure Container Instances. Uhhh no.
+-VMSS. Cheaper but too much management to take care of the VMSS (and the load balancer + VNET surrounding it)
+-2 DB Servers for redundancy and backup. Primary server always active and secondary will be active when the primary one dies; transition between them would be done by Azure Automation Account or Logic Apps (with eventhubs, or event grid, or idk).
+-Still talking about the 2 DB servers above; to keep them with similar data (i.e. mirror each other), each X hours run a job which makes a back up of the primary DB, throws the .bac file on a storage account, then the storage account triggers a LogicApp/EventGrid/EventHub (I never know which one is the right one) would trigger something that uploads the .bac to the secondary DB. Its ugly but what else can we do.
+-The same could be said for the Storage Account that stores the media. Right now we only have 1 with some redundancy (ZRS), but I believe this does not make it highly available HA
+
+###################################
+
+Stuff
+
+-Front door CDN costs double of what Azure CDN costs
+-HA for CDN: 2 CDN with different providers (ex: MS + Akamai) and one traffic manager/front door in front of it
+-Check if Recovery Services Vault is useful for something <- It actually is not 
+-Dashboard for cool metrics (there will be none; lack of time)
+-Separate app insights creation from the webapp template <- no more (lack of time)
+
+###################################

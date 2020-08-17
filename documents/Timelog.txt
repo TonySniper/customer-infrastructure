@@ -1,0 +1,27 @@
+I will be honest and say that I haven't kept records of time spent per task. I will try to give a rough estimate based on my memory (and the git commits timestamps).
+
+Important facts:
+
+-No weekends worked, save for a single Sunday: 16 of August of 2020. 10 hours of work here.
+-Mostly worked on weekedays evenings, from 20 to 23, sometimes 24.
+-Skipped a few weekdays to avoid burn out
+-Sometimes I had was idle at my current work and did some stuff there but this was unusual.
+-The margin for error is quite big, so dont take the numbers for granted
+
+Day of the interview: 30 of July of 2020
+
+First day of actual work: I believe I spent the whole Friday (31 of July) thinking about the design alone.
+First commit: 3 of August of 2020
+
+
+Design: 10 hours
+Storage account: 8 hours
+Front Door: 4 hours
+CDN: 2 hours
+Refactoring: 4 hours
+AppServices: 6 hours
+Database: 8 hours
+KeyVault: 4 hours
+Diagrams: 1 hour
+PowerPoint presentation: 4 hours
+Testing and Troubleshooting: only god knows

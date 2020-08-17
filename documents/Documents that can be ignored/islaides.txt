@@ -107,4 +107,5 @@ Dado a reuniao que tivemos, gostariamos de apresentar nossa proposta tecnica par
     -Por exemplo, pra dados sensiveis, como user e pw do banco, nao usei secure string e passei como plain text. Ha outras coisas similares a esta nos templates
         -Isso foi feito porque eu quis focar no geral ao inves de focar nos detalhes pequenos
 -Nunca mexi com Wordpress na vida e nao sabia como ele funcionava. Esta foi a parte mais dificil do projeto pra mim.
+-N sei fazer ppt, my gf fez pra mim, isso demonstra que qnd tenho dificuldades sei pedir ajuda
 -Botei bastante effort pra fazer tudo isso
